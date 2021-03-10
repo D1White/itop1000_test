@@ -5,7 +5,7 @@ const ProfileSchema = new Schema({
         required: true,
         type: String,
     },
-    hender: {
+    gender: {
         required: true,
         type: String,
         enum: ["male", "female"],
