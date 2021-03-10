@@ -20,12 +20,12 @@ const UserSchema = new Schema({
         type: Boolean,
         default: false,
     },
-    profiles: [
-        {
-            ref: "Profile",
-            type: Schema.Types.ObjectId,
-        },
-    ],
+    // profiles: [
+    //     {
+    //         ref: "Profile",
+    //         type: Schema.Types.ObjectId,
+    //     },
+    // ],
 });
 
 export const UserModel = model("User", UserSchema);
