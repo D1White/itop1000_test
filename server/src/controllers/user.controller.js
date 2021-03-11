@@ -1,4 +1,5 @@
 import express from "express";
+import jwt from 'jsonwebtoken'
 import { validationResult } from "express-validator";
 
 import { UserModel } from "../models/user.model";
@@ -6,8 +7,15 @@ import { isValidObjectId } from "../utils/isValidObjectId";
 import { generateMD5 } from '../utils/generateHash';
 
 class UserController {
-    async index(_, res) {
+    async index(req, res) {
         try {
+            if (!req.user.isAdmin) {
+                res.status(401).json({
+                    message: 'Not enough rights!'
+                })
+                return;
+            }
+
             const users = await UserModel.find({}).exec();
 
             res.json({
@@ -15,7 +23,7 @@ class UserController {
             });
         } catch (error) {
             res.status(500).json({
-                massage: JSON.stringify(error),
+                message: error,
             });
         }
     }
@@ -33,7 +41,7 @@ class UserController {
             res.json(user);
         } catch (error) {
             res.status(500).json({
-                massage: JSON.stringify(error),
+                message: error,
             });
         }
     }
@@ -60,7 +68,21 @@ class UserController {
             res.status(201).json(user);
         } catch (error) {
             res.status(500).json({
-                massage: JSON.stringify(error),
+                message: error,
+            });
+        }
+    }
+
+    async afterLogin(req, res) {
+        try {
+            const user = req.user ? (req.user).toJSON() : undefined;
+            res.json({
+                ...user,
+                token: jwt.sign({ data: req.user }, process.env.SECRET_KEY, { expiresIn: '30d' })
+            })
+        } catch (error) {
+            res.status(500).json({
+                message: error,
             });
         }
     }
@@ -96,27 +118,42 @@ class UserController {
             res.json(user);
         } catch (error) {
             res.status(500).json({
-                massage: JSON.stringify(error),
+                message: JSON.stringify(error),
             });
         }
     }
 
     async delete(req, res) {
-        const userId = req.params.id;
-        if (!isValidObjectId(userId)) {
+        try {
+            const userId = req.params.id;
+            if (!isValidObjectId(userId)) {
             res.status(404).send();
             return;
-        }
-
-        await UserModel.findByIdAndDelete(userId, (err) => {
-            if (err) {
-                res.status(404).send();
-            } else {
-                res.status(204).send();
             }
-        });
 
-        //TODO: delete profiles with this user
+            await UserModel.findByIdAndDelete(userId, (err) => {
+                if (err) {
+                    res.status(404).send();
+                } else {
+                    res.status(204).send();
+                }
+            });
+            //TODO: delete profiles with this user
+        } catch (error) {
+            res.status(500).json({
+                message: error,
+            });
+        }
+    }
+
+    async me(req, res) {
+        try {
+            res.json(req.user)
+        } catch (error) {
+            res.status(500).json({
+                message: error,
+            });
+        }
     }
 }
 
