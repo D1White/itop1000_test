@@ -3,6 +3,7 @@ import jwt from 'jsonwebtoken'
 import { validationResult } from "express-validator";
 
 import { UserModel } from "../models/user.model";
+import { ProfileModel } from "../models/profile.model";
 import { isValidObjectId } from "../utils/isValidObjectId";
 import { generateMD5 } from '../utils/generateHash';
 
@@ -44,8 +45,12 @@ class UserController {
             }
 
             const user = await UserModel.findById(userId).exec();
+            const profiles = await ProfileModel.find({ user_id: userId }).select('-user_id -__v').exec();
 
-            res.json(user);
+            res.json({
+                ...user,
+                profiles
+            });
         } catch (error) {
             res.status(500).json({
                 message: error,
@@ -158,7 +163,9 @@ class UserController {
                     res.status(204).send();
                 }
             });
-            //TODO: delete profiles with this user
+
+            await ProfileModel.deleteMany({ user_id: userId });
+
         } catch (error) {
             res.status(500).json({
                 message: error,
@@ -168,7 +175,13 @@ class UserController {
 
     async me(req, res) {
         try {
-            res.json(req.user)
+            const user = req.user ? (req.user).toJSON() : undefined;
+            const profiles = await ProfileModel.find({ user_id: req.user._id }).select('-user_id -__v').exec();
+
+            res.json({
+                ...user,
+                profiles
+            })
         } catch (error) {
             res.status(500).json({
                 message: error,

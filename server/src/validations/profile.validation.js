@@ -2,14 +2,18 @@ import { body } from 'express-validator';
 
 export const profileValidation = [
     body("name", "Enter name")
-        .isEmail()
-        .withMessage("Incorrect email"),
+        .isString()
+        .isLength({
+            min: 2,
+            max: 30
+        })
+        .withMessage("The allowed number of characters in a name is from 2 to 30"),
     body("gender", "Enter gender")
         .isIn(['male', 'female'])
         .withMessage("Incorrect gender"),
     body("birthdate", "Enter birthdate")
         .isDate()
-        .withMessage("Incorrect birthdate"),
+        .withMessage("Incorrect date"),
     body("city", "Enter city")
         .isString()
         .isLength({

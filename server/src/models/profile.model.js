@@ -18,6 +18,11 @@ const ProfileSchema = new Schema({
         required: true,
         type: String,
     },
+    user_id: {
+        required: true,
+        ref: 'User',
+        type: Schema.Types.ObjectId,
+    }
 });
 
 export const ProfileModel = model("Profile", ProfileSchema);
