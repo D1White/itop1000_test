@@ -36,6 +36,13 @@ class UserController {
                 return;
             }
 
+            if (!req.user.isAdmin) {
+                res.status(401).json({
+                    message: 'Not enough rights!'
+                })
+                return;
+            }
+
             const user = await UserModel.findById(userId).exec();
 
             res.json(user);
@@ -103,13 +110,19 @@ class UserController {
                 return;
             }
 
+            if (!req.user.isAdmin) {
+                res.status(401).json({
+                    message: 'Not enough rights!'
+                })
+                return;
+            }
+
             const user = await UserModel.updateOne(
                 { _id: userId },
                 {
                     $set: {
                         username: req.body.username,
                         email: req.body.email,
-                        password: generateMD5(req.body.password + process.env.SECRET_KEY),
                         isAdmin: req.body.isAdmin,
                     },
                 }
@@ -118,7 +131,7 @@ class UserController {
             res.json(user);
         } catch (error) {
             res.status(500).json({
-                message: JSON.stringify(error),
+                message: error,
             });
         }
     }
@@ -127,8 +140,15 @@ class UserController {
         try {
             const userId = req.params.id;
             if (!isValidObjectId(userId)) {
-            res.status(404).send();
-            return;
+                res.status(404).send();
+                return;
+            }
+
+            if (!req.user.isAdmin) {
+                res.status(401).json({
+                    message: 'Not enough rights!'
+                })
+                return;
             }
 
             await UserModel.findByIdAndDelete(userId, (err) => {
