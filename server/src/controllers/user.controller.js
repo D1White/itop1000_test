@@ -3,6 +3,7 @@ import { validationResult } from "express-validator";
 
 import { UserModel } from "../models/user.model";
 import { isValidObjectId } from "../utils/isValidObjectId";
+import { generateMD5 } from '../utils/generateHash';
 
 class UserController {
     async index(_, res) {
@@ -50,7 +51,7 @@ class UserController {
             const data = {
                 username: req.body.username,
                 email: req.body.email,
-                password: req.body.password,
+                password: generateMD5(req.body.password + process.env.SECRET_KEY),
                 isAdmin: req.body.isAdmin,
             };
 
@@ -86,7 +87,7 @@ class UserController {
                     $set: {
                         username: req.body.username,
                         email: req.body.email,
-                        password: req.body.password,
+                        password: generateMD5(req.body.password + process.env.SECRET_KEY),
                         isAdmin: req.body.isAdmin,
                     },
                 }

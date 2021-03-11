@@ -20,12 +20,13 @@ const UserSchema = new Schema({
         type: Boolean,
         default: false,
     },
-    // profiles: [
-    //     {
-    //         ref: "Profile",
-    //         type: Schema.Types.ObjectId,
-    //     },
-    // ],
+});
+
+UserSchema.set('toJSON', {
+    transform: function(_, obj) {
+        delete obj.password;
+        return obj;
+    }
 });
 
 export const UserModel = model("User", UserSchema);
