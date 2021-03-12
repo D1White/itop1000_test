@@ -1,14 +1,24 @@
 import { useState, useEffect } from "react";
+import { useDispatch } from 'react-redux'
+
 import "./auth.scss";
 import { Input } from "../../components";
+import { fetchUser, setUser } from '../../redux/actions/user'
 
 const Login = () => {
+    const dispatch = useDispatch();
+
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
 
     useEffect(() => {
         console.log(username, password);
+
     }, [username, password]);
+
+    const Login = () => {
+        dispatch(fetchUser(username, password));
+    }
 
     return (
         <div className="login">
@@ -28,7 +38,7 @@ const Login = () => {
                     type={'password'}
                 />
             </div>
-            <button type='button' className='login__button'>
+            <button type='button' className='login__button' onClick={Login}>
                 Sign In
             </button>
         </div>

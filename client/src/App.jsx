@@ -1,10 +1,13 @@
-import { Login, Register } from './pages'
+import { Switch, Route } from 'react-router-dom'
+import { Login, Register, PrivateRoute, Main } from './pages'
 
 function App() {
   return (
-    <>
-        <Register />
-    </>
+    <Switch>
+        <Route exact path='/login' component={Login} />
+        <Route exact path='/register' component={Register} />
+        <PrivateRoute exact path='/' component={Main} />
+    </Switch>
   );
 }
 
