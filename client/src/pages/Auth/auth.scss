@@ -1,0 +1,40 @@
+@import '../../styles/variables.scss';
+
+.login {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    &__header {
+        font-size: 48px;
+        font-weight: 600;
+        margin-bottom: 130px;
+    }
+
+    &__inputs {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    &__button {
+        margin-top: 90px;
+        padding: 10px 25px;
+        background-color: $input_bg;
+        border-radius: 12px;
+
+        font-family: 'Poppins', sans-serif;
+        font-size: 21px;
+        letter-spacing: 0.75px;
+        color: $body;
+
+        transition: color 0.3s, background-color 0.3s;
+
+        &:hover {
+            color: $dark;
+            background-color: darken($input_bg, 5);
+        }
+    }
+}
