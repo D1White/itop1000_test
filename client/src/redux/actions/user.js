@@ -5,7 +5,7 @@ export const setUser = (user) => ({
     payload: user,
 });
 
-export const fetchUser = (username, password) => (dispatch) => {
+export const login = (username, password) => (dispatch) => {
     axios.post('http://localhost:4000/auth/login', {
         username: username,
         password: password,
@@ -16,4 +16,13 @@ export const fetchUser = (username, password) => (dispatch) => {
             localStorage.setItem('token', req.data.token)
         }
     });
+}
+
+export const fetchUser = (token) => (dispatch) => {
+    axios.get('http://localhost:4000/users/me', {
+        headers: { token }
+    }).then( user => {
+        console.log(user.data);
+        dispatch(setUser(user.data));
+    })
 }

@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux'
 
 import "./auth.scss";
 import { Input } from "../../components";
-import { fetchUser, setUser } from '../../redux/actions/user'
+import { login } from '../../redux/actions/user'
 
 const Login = () => {
     const dispatch = useDispatch();
@@ -17,7 +17,7 @@ const Login = () => {
     }, [username, password]);
 
     const Login = () => {
-        dispatch(fetchUser(username, password));
+        dispatch(login(username, password));
     }
 
     return (
