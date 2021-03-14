@@ -1,11 +1,10 @@
-import { useState } from 'react'
+import React from 'react'
 import './checkbox.scss';
 
 const Checkbox = ({ setChecked, checked, text }) => {
     const handleInputChange = (event) => {
         setChecked(event.target.checked);
     }
-
 
     return (
         <label className="checkbox__block">

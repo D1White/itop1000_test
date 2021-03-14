@@ -6,7 +6,7 @@ export const setUser = (user) => ({
 });
 
 export const login = (username, password) => (dispatch) => {
-    axios.post('http://localhost:4000/auth/login', {
+    axios.post('/auth/login', {
         username: username,
         password: password,
     }).then( req => {
@@ -19,7 +19,7 @@ export const login = (username, password) => (dispatch) => {
 }
 
 export const fetchUser = (token) => (dispatch) => {
-    axios.get('http://localhost:4000/users/me', {
+    axios.get('/users/me', {
         headers: { token }
     }).then( user => {
         console.log(user.data);

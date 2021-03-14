@@ -10,14 +10,37 @@ const Login = () => {
 
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
+    const [warnings, setWarnings] = useState({
+        username: false,
+        password: false,
+    });
 
     useEffect(() => {
-        console.log(username, password);
+        if (username) {
+            if(username.length > 2 && username.length < 51) {
+                setWarnings({ ...warnings, username: false });
+            } else {
+                setWarnings({ ...warnings, username: true });
+            }
+        }
+    }, [username]);// eslint-disable-line react-hooks/exhaustive-deps
 
-    }, [username, password]);
+    useEffect(() => {
+        if (password) {
+            if(password.length > 2 && password.length < 51) {
+                setWarnings({ ...warnings, password: false });
+            } else {
+                setWarnings({ ...warnings, password: true });
+            }
+        }
+    }, [password]);// eslint-disable-line react-hooks/exhaustive-deps
 
     const Login = () => {
-        dispatch(login(username, password));
+        if (username.length > 0 && password.length > 0) {
+            dispatch(login(username, password));
+        } else {
+            alert('⚠ Not all fields are filled in!');
+        }
     }
 
     return (
@@ -27,13 +50,13 @@ const Login = () => {
                 <Input
                     title="Username/email"
                     width={400}
-                    error={false}
+                    error={warnings.username}
                     setValue={setUsername}
                 />
                 <Input
                     title="Password"
                     width={400}
-                    error={false}
+                    error={warnings.password}
                     setValue={setPassword}
                     type={'password'}
                 />
