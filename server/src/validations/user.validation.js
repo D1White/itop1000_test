@@ -4,10 +4,10 @@ export const createUserValidation = [
     body("username", "Enter username")
         .isString()
         .isLength({
-            min: 2,
+            min: 3,
             max: 20
         })
-        .withMessage("The allowed number of characters in a username is from 2 to 20"),
+        .withMessage("The allowed number of characters in a username is from 3 to 50"),
     body("email", "Enter email")
         .isString()
         .isLength({
