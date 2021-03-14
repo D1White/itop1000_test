@@ -33,6 +33,6 @@ app.post('/profiles', passport.authenticate('jwt', { session: false }), profileV
 app.patch('/profiles', passport.authenticate('jwt', { session: false }), profileValidation, ProfileCtrl.update);
 app.delete('/profiles', passport.authenticate('jwt', { session: false }), ProfileCtrl.delete);
 
-app.listen(process.env.PORT, () => {
-    console.log(`SERVER RUNNING at http://localhost:${process.env.PORT}`);
+app.listen(5000, () => {
+    console.log(`SERVER RUNNING at http://localhost:5000`);
 });
