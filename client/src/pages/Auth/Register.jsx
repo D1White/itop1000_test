@@ -80,7 +80,7 @@ const Register = () => {
                     text='isAdmin'
                 />
             </div>
-            <button type='button' className='login__button'>
+            <button type='button' className='login__button' onClick={Register}>
                 Sign Up
             </button>
         </div>

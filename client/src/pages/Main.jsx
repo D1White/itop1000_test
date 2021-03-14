@@ -1,6 +1,7 @@
 import { useEffect } from 'react'
 import { useDispatch } from 'react-redux'
 
+import { Header } from '../components'
 import { fetchUser } from '../redux/actions/user'
 
 const Main = () => {
@@ -11,9 +12,9 @@ const Main = () => {
     }, []);// eslint-disable-line react-hooks/exhaustive-deps
 
     return (
-        <div>
-
-        </div>
+        <>
+            <Header />
+        </>
     )
 }
 
