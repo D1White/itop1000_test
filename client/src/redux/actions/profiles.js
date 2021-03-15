@@ -41,3 +41,13 @@ export const updateProfile = (id, profile) => (dispatch) => {
         dispatch(fetchProfiles());
     });
 }
+
+export const createProfile = (profile) => (dispatch) => {
+    axios.post(`/profiles`, profile, {
+        headers: {
+            token: localStorage.getItem('token')
+        }
+    }).then( _ => {
+        dispatch(fetchProfiles());
+    });
+}

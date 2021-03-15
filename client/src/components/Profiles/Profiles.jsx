@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import "./profiles.scss";
@@ -12,11 +12,12 @@ const Profiles = ({ setEditableProfile }) => {
 
     useEffect(() => {
         dispatch(fetchProfiles());
-    }, []);
+    }, []);// eslint-disable-line react-hooks/exhaustive-deps
 
-    const EditProfile = () => {
-
+    const createProfile = () => {
+        setEditableProfile('create');
     }
+
 
     return (
         <div className="profiles">
@@ -38,7 +39,7 @@ const Profiles = ({ setEditableProfile }) => {
                                     setEditableProfile={setEditableProfile}
                                 />
                             ))}
-                            <div className="profileCard add">
+                            <div className="profileCard add" onClick={createProfile}>
                                 <img src={plus_ico} alt="add" />
                                 <span>Crearte new profile</span>
                             </div>

@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux'
 
 import './popup.scss'
 import { Input, RadioInput } from '../index'
-import { updateProfile } from '../../redux/actions/profiles'
+import { updateProfile, createProfile } from '../../redux/actions/profiles'
 
 const ProfilePopup = ({ popupVisible, profileId }) => {
     const dispatch = useDispatch();
@@ -29,7 +29,7 @@ const ProfilePopup = ({ popupVisible, profileId }) => {
     }, [name]);// eslint-disable-line react-hooks/exhaustive-deps
 
     useEffect(() => {
-        const regexp = /^\d{4}(\.|-)\d{1,2}(\.|-)\d{1,2}$/g;
+        const regexp = /^\d{1,2}(\.|-|\/)\d{1,2}(\.|-|\/)\d{4}$/g;
 
         if (birthdate) {
             if(regexp.test(birthdate)) {
@@ -53,12 +53,21 @@ const ProfilePopup = ({ popupVisible, profileId }) => {
     const Submit = () => {
         if (!warnings.name && !warnings.birthdate && !warnings.city) {
             if (name.length > 0 && birthdate.length > 0 && gender && city.length > 0) {
-                dispatch(updateProfile(profileId, {
-                    name,
-                    gender,
-                    birthdate,
-                    city
-                }));
+                if (profileId === 'create') {
+                    dispatch(createProfile({
+                        name,
+                        gender,
+                        birthdate,
+                        city
+                    }));
+                }else {
+                    dispatch(updateProfile(profileId, {
+                        name,
+                        gender,
+                        birthdate,
+                        city
+                    }));
+                }
                 popupVisible('');
             } else {
                 alert('⚠ Not all fields are filled in!');
