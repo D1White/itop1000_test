@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
-import { Header, UserController, UserPopup } from '../components'
+import { Header, UserController, UserPopup, Profiles } from '../components'
 import { fetchUser } from '../redux/actions/user'
 
 const Main = () => {
@@ -20,6 +20,7 @@ const Main = () => {
             { userPopupVisible && <UserPopup popupVisible={setUserPopupVisible} /> }
             <Header />
             <UserController popupVisible={setUserPopupVisible} />
+            <Profiles />
         </>
     )
 }

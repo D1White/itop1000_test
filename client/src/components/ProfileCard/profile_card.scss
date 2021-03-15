@@ -1,0 +1,124 @@
+@import '../../styles/variables.scss';
+
+.profileCard {
+    width: 320px;
+    height: 300px;
+    border-radius: 16px;
+    border: 1px solid $line;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background-color: white;
+    margin-bottom: 60px;
+    margin-left: 120px;
+
+    transition: box-shadow 0.2s;
+
+    &:hover {
+        box-shadow: 0px 8px 16px rgba(17, 17, 17, 0.04);
+    }
+
+    &:first-child, &:nth-child(5n) {
+        margin-left: 0;
+    }
+
+    &__content {
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        justify-content: center;
+        height: 100%;
+    }
+
+    &__title {
+        font-weight: 500;
+        letter-spacing: 0.75px;
+        margin-bottom: 20px;
+    }
+
+    &__text {
+        letter-spacing: 0.75px;
+        margin-bottom: 15px;
+
+        &:last-child {
+            margin-bottom: 0;
+        }
+    }
+
+    &__buttons {
+        height: 40px;
+        border-top: 1px solid $line;
+        border-radius: 0px 0px 16px 16px;
+        display: flex;
+        justify-content: space-between;
+    }
+
+    &__button {
+        width: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        transition: background-color 0.3s;
+
+        &:hover {
+            &>span {
+                color: $off-white;
+            }
+            &>svg>path {
+                stroke: white;
+            }
+        }
+
+        &.edit {
+            border-radius: 0px 0px 0px 16px;
+            border-right: 0.5px solid $line;
+
+            &:hover {
+                background-color: $purple;
+            }
+        }
+        &.delete {
+            border-radius: 0px 0px 16px 0px;
+            border-left: 0.5px solid $line;
+
+            &:hover {
+                background-color: $red;
+            }
+        }
+
+        &>span {
+            font-size: 18px;
+            letter-spacing: 0.75px;
+            margin-right: 7px;
+            transition: color 0.3s;
+        }
+
+        &>svg>path {
+            transition: stroke 0.3s;
+        }
+    }
+
+    &.add {
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+
+        transition: background-color 0.3s;
+
+        &:hover {
+            background-color: darken($off-white, 3);
+        }
+
+        &>img {
+            width: 70px;
+            height: 70px;
+        }
+
+        &>span {
+            font-size: 20px;
+            letter-spacing: 0.75px;
+            margin-top: 30px;
+        }
+    }
+}
