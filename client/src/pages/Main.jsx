@@ -1,13 +1,14 @@
 import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
-import { Header, UserController, UserPopup, Profiles } from '../components'
+import { Header, UserController, UserPopup, Profiles, ProfilePopup } from '../components'
 import { fetchUser } from '../redux/actions/user'
 
 const Main = () => {
     const dispatch = useDispatch();
     const { user } = useSelector(({ user }) => user);
     const [userPopupVisible, setUserPopupVisible] = useState(false);
+    const [editableProfile, setEditableProfile] = useState('');
 
     useEffect(() => {
         if (!user) {
@@ -17,10 +18,11 @@ const Main = () => {
 
     return (
         <>
+            { editableProfile && <ProfilePopup popupVisible={setEditableProfile} profileId={editableProfile} /> }
             { userPopupVisible && <UserPopup popupVisible={setUserPopupVisible} /> }
             <Header />
             <UserController popupVisible={setUserPopupVisible} />
-            <Profiles />
+            <Profiles setEditableProfile={setEditableProfile} />
         </>
     )
 }

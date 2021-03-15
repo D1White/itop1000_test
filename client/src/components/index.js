@@ -4,6 +4,7 @@ export {default as Header} from './Header/Header';
 export {default as UserController} from './UserController/UserController';
 export {default as SVGSprites} from './SVGSprites';
 export {default as UserPopup} from './Popups/UserPopup';
+export {default as ProfilePopup} from './Popups/ProfilePopup';
 export {default as RadioInput} from './RadioInput/RadioInput';
 export {default as Profiles} from './Profiles/Profiles';
 export {default as ProfileCard} from './ProfileCard/ProfileCard';

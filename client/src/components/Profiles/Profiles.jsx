@@ -6,7 +6,7 @@ import { ProfileCard } from "../index";
 import { fetchProfiles } from "../../redux/actions/profiles";
 import plus_ico from "../../assets/ico/plus.svg";
 
-const Profiles = () => {
+const Profiles = ({ setEditableProfile }) => {
     const dispatch = useDispatch();
     const { profiles, isLoading } = useSelector(({ profiles }) => profiles);
 
@@ -14,6 +14,9 @@ const Profiles = () => {
         dispatch(fetchProfiles());
     }, []);
 
+    const EditProfile = () => {
+
+    }
 
     return (
         <div className="profiles">
@@ -32,6 +35,7 @@ const Profiles = () => {
                                     birthdate={profile.birthdate}
                                     city={profile.city}
                                     id={profile._id}
+                                    setEditableProfile={setEditableProfile}
                                 />
                             ))}
                             <div className="profileCard add">

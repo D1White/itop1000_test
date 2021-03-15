@@ -31,3 +31,13 @@ export const deleteProfile = (id) => (dispatch) => {
         dispatch(fetchProfiles());
     });
 }
+
+export const updateProfile = (id, profile) => (dispatch) => {
+    axios.patch(`/profiles/${id}`, profile, {
+        headers: {
+            token: localStorage.getItem('token')
+        }
+    }).then( _ => {
+        dispatch(fetchProfiles());
+    });
+}

@@ -6,7 +6,7 @@ import './popup.scss'
 import { Input, RadioInput } from '../index'
 import { fetchUser } from '../../redux/actions/user'
 
-const Popup = ({ popupVisible }) => {
+const UserPopup = ({ popupVisible }) => {
     const dispatch = useDispatch();
     const { user } = useSelector(({ user }) => user);
 
@@ -94,4 +94,4 @@ const Popup = ({ popupVisible }) => {
     )
 }
 
-export default Popup
+export default UserPopup

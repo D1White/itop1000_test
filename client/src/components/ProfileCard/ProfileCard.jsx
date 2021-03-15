@@ -4,12 +4,15 @@ import { useDispatch } from 'react-redux'
 import "./profile_card.scss";
 import { deleteProfile } from '../../redux/actions/profiles'
 
-const ProfileCard = ({ name, gender, birthdate, city, id }) => {
+const ProfileCard = ({ name, gender, birthdate, city, id, setEditableProfile }) => {
     const dispatch = useDispatch();
 
     const ConvertDate = () => {
-        const date = new Date(birthdate)
-        return `${date.getDate()}.${date.getMonth() + 1}.${date.getFullYear()}`
+        const date = new Date(birthdate);
+        const dd = String(date.getDate()).padStart(2, '0');
+        const mm = String(date.getMonth() + 1).padStart(2, '0');
+        const yyyy = date.getFullYear();
+        return `${dd}/${mm}/${yyyy}`
     }
 
     const Delete = () => {
@@ -17,7 +20,7 @@ const ProfileCard = ({ name, gender, birthdate, city, id }) => {
     }
 
     const Edit = () => {
-
+        setEditableProfile(id);
     }
 
     return (
