@@ -33,12 +33,20 @@
     &__title {
         font-weight: 500;
         letter-spacing: 0.75px;
+        max-width: 300px;
         margin-bottom: 20px;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
     }
 
     &__text {
         letter-spacing: 0.75px;
         margin-bottom: 15px;
+        max-width: 300px;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow:hidden;
 
         &:last-child {
             margin-bottom: 0;

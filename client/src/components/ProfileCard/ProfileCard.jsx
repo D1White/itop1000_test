@@ -1,18 +1,35 @@
 import React from "react";
+import { useDispatch } from 'react-redux'
 
 import "./profile_card.scss";
+import { deleteProfile } from '../../redux/actions/profiles'
 
-const ProfileCard = () => {
+const ProfileCard = ({ name, gender, birthdate, city, id }) => {
+    const dispatch = useDispatch();
+
+    const ConvertDate = () => {
+        const date = new Date(birthdate)
+        return `${date.getDate()}.${date.getMonth() + 1}.${date.getFullYear()}`
+    }
+
+    const Delete = () => {
+        dispatch(deleteProfile(id));
+    }
+
+    const Edit = () => {
+
+    }
+
     return (
         <div className="profileCard">
             <div className="profileCard__content">
-                <h3 className="profileCard__title">Danylo Bilyi</h3>
-                <span className="profileCard__text">male</span>
-                <span className="profileCard__text">25.03.2003</span>
-                <span className="profileCard__text">Kyiv</span>
+                <h3 className="profileCard__title">{name}</h3>
+                <span className="profileCard__text">{gender}</span>
+                <span className="profileCard__text">{ConvertDate()}</span>
+                <span className="profileCard__text">{city}</span>
             </div>
             <div className="profileCard__buttons">
-                <button className="profileCard__button edit">
+                <button className="profileCard__button edit" onClick={Edit}>
                     <span>edit</span>
                     <svg
                         width="18"
@@ -34,7 +51,7 @@ const ProfileCard = () => {
                         />
                     </svg>
                 </button>
-                <button className="profileCard__button delete">
+                <button className="profileCard__button delete" onClick={Delete}>
                     <span>delete</span>
                     <svg
                         width="20"
