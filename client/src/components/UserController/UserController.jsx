@@ -1,10 +1,18 @@
-import React from 'react'
+import { useEffect } from 'react'
 import { useSelector } from 'react-redux'
 
 import './user_controller.scss';
 
 const UserController = ({ popupVisible }) => {
     const { user } = useSelector(({ user }) => user);
+
+    const Edit = () => {
+        popupVisible(true);
+    }
+
+    const Delete = () => {
+
+    }
 
     return (
         <div className='userCtrl'>
@@ -13,10 +21,20 @@ const UserController = ({ popupVisible }) => {
                     <span className="userCtrl__username">{user.username}</span>
                     <span className="userCtrl__username">{user.email}</span>
                     <span className="userCtrl__role">{user.isAdmin ? 'admin' : 'user'}</span>
-                    <div className="userCtrl__buttons">
-                        <button className='userCtrl__button edit' aria-label='Edit' />
-                        <button className='userCtrl__button delete' aria-label='Delete' />
-                    </div>
+                    { user.isAdmin && (
+                        <div className="userCtrl__buttons">
+                            <button
+                                className='userCtrl__button edit'
+                                aria-label='Edit'
+                                onClick={Edit}
+                            />
+                            <button
+                                className='userCtrl__button delete'
+                                aria-label='Delete'
+                                onClick={Delete}
+                            />
+                        </div>
+                    )}
                 </>
             ) : (
                 <span>Loading</span>

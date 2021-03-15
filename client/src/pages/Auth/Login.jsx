@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+import { Redirect } from 'react-router-dom'
 
 import "./auth.scss";
 import { Input } from "../../components";
@@ -14,6 +15,9 @@ const Login = () => {
         username: false,
         password: false,
     });
+    const [redirect, setRedirect] = useState(false)
+
+    const { user } = useSelector(({ user }) => user);
 
     useEffect(() => {
         if (username) {
@@ -38,6 +42,7 @@ const Login = () => {
     const Login = () => {
         if (username.length > 0 && password.length > 0) {
             dispatch(login(username, password));
+            setRedirect(true);
         } else {
             alert('⚠ Not all fields are filled in!');
         }
@@ -45,6 +50,7 @@ const Login = () => {
 
     return (
         <div className="login">
+            { redirect && user && <Redirect to='/' />}
             <h1 className="login__header">Authorization</h1>
             <div className="login__inputs">
                 <Input

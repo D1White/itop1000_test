@@ -1,20 +1,23 @@
 import { useEffect, useState } from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 
 import { Header, UserController, UserPopup } from '../components'
 import { fetchUser } from '../redux/actions/user'
 
 const Main = () => {
     const dispatch = useDispatch();
-    const [userPopupVisible, setUserPopupVisible] = useState(true);
+    const { user } = useSelector(({ user }) => user);
+    const [userPopupVisible, setUserPopupVisible] = useState(false);
 
     useEffect(() => {
-        dispatch(fetchUser(localStorage.getItem('token')))
+        if (!user) {
+            dispatch(fetchUser())
+        }
     }, []);// eslint-disable-line react-hooks/exhaustive-deps
 
     return (
         <>
-            { userPopupVisible && <UserPopup /> }
+            { userPopupVisible && <UserPopup popupVisible={setUserPopupVisible} /> }
             <Header />
             <UserController popupVisible={setUserPopupVisible} />
         </>

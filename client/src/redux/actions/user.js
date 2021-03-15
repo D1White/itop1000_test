@@ -5,21 +5,29 @@ export const setUser = (user) => ({
     payload: user,
 });
 
+export const setUserLoaded = (isLoaded) => ({
+    type: "SET_USER_LOADED",
+    payload: isLoaded,
+});
+
 export const login = (username, password) => (dispatch) => {
+    dispatch(setUserLoaded(false))
     axios.post('/auth/login', {
         username: username,
         password: password,
     }).then( req => {
-        // dispatch(setUser(req.data));
         if(req.data) {
-            localStorage.setItem('token', req.data.token)
+            localStorage.setItem('token', req.data.token);
+            dispatch(setUser(req.data))
         }
     });
 }
 
-export const fetchUser = (token) => (dispatch) => {
+export const fetchUser = () => (dispatch) => {
     axios.get('/users/me', {
-        headers: { token }
+        headers: {
+            token: localStorage.getItem('token')
+        }
     }).then( user => {
         dispatch(setUser(user.data));
     })
