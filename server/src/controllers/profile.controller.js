@@ -125,6 +125,36 @@ class ProfileController {
             });
         }
     }
+
+    async statistic(req, res) {
+        try {
+            if (!req.user.isAdmin) {
+                res.status(401).json({
+                    message: 'Not enough rights!'
+                })
+                return;
+            }
+            const users = await UserModel.find().exec();
+            const profiles = await ProfileModel.find().exec();
+            const adults = profiles.filter(profile => {
+                const date = new Date(profile.birthdate);
+                const now = new Date();
+                if (now.getFullYear() - date.getFullYear() >= 18) {
+                    return profile;
+                }
+            })
+
+            res.json({
+                users: users.length,
+                profiles: profiles.length,
+                adults: adults.length,
+            });
+        } catch (error) {
+            res.status(500).json({
+                message: error,
+            });
+        }
+    }
 }
 
 export const ProfileCtrl = new ProfileController();
