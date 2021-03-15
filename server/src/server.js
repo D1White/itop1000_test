@@ -31,7 +31,7 @@ app.post('/auth/login', passport.authenticate('local'), UserCtrl.afterLogin);
 app.get('/profiles', ProfileCtrl.index); // remove
 app.post('/profiles', passport.authenticate('jwt', { session: false }), profileValidation, ProfileCtrl.create);
 app.patch('/profiles', passport.authenticate('jwt', { session: false }), profileValidation, ProfileCtrl.update);
-app.delete('/profiles', passport.authenticate('jwt', { session: false }), ProfileCtrl.delete);
+app.delete('/profiles/:id', passport.authenticate('jwt', { session: false }), ProfileCtrl.delete);
 
 app.listen(5000, () => {
     console.log(`SERVER RUNNING at http://localhost:5000`);

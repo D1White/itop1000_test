@@ -105,7 +105,7 @@ class ProfileController {
 
             const profile = await ProfileModel.findById(profileId).exec();
 
-            if (!req.user.isAdmin || req.user._id !== profile.user_id) {
+            if (!req.user.isAdmin || JSON.stringify(req.user._id) !== JSON.stringify(profile.user_id)) {
                 res.status(401).json({
                     message: 'Not enough rights!'
                 })
