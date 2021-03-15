@@ -12,7 +12,10 @@ export const profileValidation = [
         .isIn(['male', 'female'])
         .withMessage("Incorrect gender"),
     body("birthdate", "Enter birthdate")
-        .isDate()
+        .isDate({
+            format: 'DD/MM/YYYY',
+            delimiters: ['/', '-', '.']
+        })
         .withMessage("Incorrect date"),
     body("city", "Enter city")
         .isString()
