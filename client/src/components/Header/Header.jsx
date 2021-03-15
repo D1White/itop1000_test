@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom'
+import { useSelector } from 'react-redux'
 
 import './header.scss';
 import avatar from '../../assets/img/avatar.png';
@@ -8,6 +9,7 @@ import dashboard from '../../assets/ico/dashboard.svg';
 import users from '../../assets/ico/users.svg';
 
 const Header = () => {
+    const { user } = useSelector(({ user }) => user);
 
     const Logout = () => {
         localStorage.removeItem('token');
@@ -18,7 +20,11 @@ const Header = () => {
             <div className="container">
                 <div className="header__content">
                     <div className="header__user">
-                        <img src={avatar} alt="avatar " className="header__avatar" />
+                        <img
+                            src={avatar}
+                            alt="avatar"
+                            className={`header__avatar ${user && user.isAdmin ? 'admin' : ''}`}
+                        />
                         <span className="header__username">1White</span>
                     </div>
                     <nav className="header__navigation">
