@@ -5,7 +5,7 @@ const Input = ({ title, error, width = 300, type='text', setValue }) => {
 
     const handleChange = (event) => {
         setValue(event.target.value);
-      }
+    }
 
     return (
         <div className='input' style={{width}}>

@@ -1,11 +1,12 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
 
-import { Header, UserController } from '../components'
+import { Header, UserController, UserPopup } from '../components'
 import { fetchUser } from '../redux/actions/user'
 
 const Main = () => {
     const dispatch = useDispatch();
+    const [userPopupVisible, setUserPopupVisible] = useState(true);
 
     useEffect(() => {
         dispatch(fetchUser(localStorage.getItem('token')))
@@ -13,8 +14,9 @@ const Main = () => {
 
     return (
         <>
+            { userPopupVisible && <UserPopup /> }
             <Header />
-            <UserController />
+            <UserController popupVisible={setUserPopupVisible} />
         </>
     )
 }

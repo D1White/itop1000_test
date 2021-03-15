@@ -1,8 +1,9 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
+
 import './user_controller.scss';
 
-const UserController = () => {
+const UserController = ({ popupVisible }) => {
     const { user } = useSelector(({ user }) => user);
 
     return (
