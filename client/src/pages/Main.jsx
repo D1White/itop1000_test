@@ -1,7 +1,7 @@
 import { useEffect } from 'react'
 import { useDispatch } from 'react-redux'
 
-import { Header } from '../components'
+import { Header, UserController } from '../components'
 import { fetchUser } from '../redux/actions/user'
 
 const Main = () => {
@@ -14,6 +14,7 @@ const Main = () => {
     return (
         <>
             <Header />
+            <UserController />
         </>
     )
 }

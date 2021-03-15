@@ -1,0 +1,55 @@
+@import '../../styles/variables.scss';
+
+.userCtrl {
+    padding: 60px 0;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+
+    &__username {
+        font-size: 32px;
+        color: $dark;
+        margin-bottom: 20px;
+    }
+
+    &__role {
+        color: $dark;
+        margin-bottom: 25px;
+    }
+
+    &__buttons {
+        display: flex;
+        align-items: center;
+    }
+
+    &__button {
+        width: 24px;
+        height: 24px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        opacity: 0.8;
+
+        transition: opacity 0.1s;
+
+        &:last-child {
+            margin-left: 35px;
+        }
+
+        &:hover {
+            opacity: 1;
+        }
+
+        &.edit  {
+            background-image: url('../../assets/ico/edit.svg');
+            background-repeat: no-repeat;
+            background-position: center center;
+        }
+
+        &.delete {
+            background-image: url('../../assets/ico/delete.svg');
+            background-repeat: no-repeat;
+            background-position: center center;
+        }
+    }
+}
