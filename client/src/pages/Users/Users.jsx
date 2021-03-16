@@ -12,7 +12,7 @@ const Users = () => {
     const [users, setUsers] = useState([]);
 
     useEffect(() => {
-        axios.get('/users', {
+        axios.get('/api/users', {
             headers: {
                 token: localStorage.getItem('token')
             }

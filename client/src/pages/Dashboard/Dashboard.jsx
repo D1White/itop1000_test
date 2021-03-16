@@ -8,7 +8,7 @@ const Dashboard = () => {
     const [statistic, setStatistic] = useState(null);
 
     useEffect(() => {
-        axios.get('/profiles/statistic', {
+        axios.get('/api/profiles/statistic', {
             headers: {
                 token: localStorage.getItem('token')
             }
