@@ -1,2 +1,23 @@
 @import '../../styles/variables.scss';
 
+.dashboardCard {
+    background-color: white;
+    padding: 60px 75px;
+    border: 1px solid $line;
+    border-radius: 32px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    &__title {
+        font-size: 36px;
+        color: $dark;
+    }
+
+    &__value {
+        font-size: 48px;
+        font-weight: 600;
+        margin-top: 50px;
+        color: $dark;
+    }
+}

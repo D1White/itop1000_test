@@ -1,9 +1,12 @@
 import React from 'react'
 
+import './dashboard_card.scss';
+
 const DashboardCard = ({ title, value }) => {
     return (
         <div className='dashboardCard'>
-
+            <span className="dashboardCard__title">{title}</span>
+            <span className="dashboardCard__value">{value}</span>
         </div>
     )
 }
