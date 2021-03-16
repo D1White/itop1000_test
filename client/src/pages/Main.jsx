@@ -18,11 +18,17 @@ const Main = () => {
 
     return (
         <>
-            { editableProfile && <ProfilePopup popupVisible={setEditableProfile} profileId={editableProfile} /> }
+            { editableProfile && (
+                <ProfilePopup
+                    popupVisible={setEditableProfile}
+                    profileId={editableProfile}
+                    userId={user._id}
+                />
+            )}
             { userPopupVisible && <UserPopup popupVisible={setUserPopupVisible} /> }
             <Header />
-            <UserController popupVisible={setUserPopupVisible} />
-            <Profiles setEditableProfile={setEditableProfile} />
+            <UserController popupVisible={setUserPopupVisible} user={user} />
+            { user && <Profiles setEditableProfile={setEditableProfile} user_id={user._id} /> }
         </>
     )
 }

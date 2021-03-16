@@ -1,5 +1,5 @@
 import { Switch, Route } from 'react-router-dom'
-import { Login, Register, PrivateRoute, Main } from './pages'
+import { Login, Register, PrivateRoute, Main, AdminRoute, Dashboard } from './pages'
 
 function App() {
   return (
@@ -7,6 +7,7 @@ function App() {
         <Route exact path='/login' component={Login} />
         <Route exact path='/register' component={Register} />
         <PrivateRoute exact path='/' component={Main} />
+        <AdminRoute exact path='/dashboard' component={Dashboard} />
     </Switch>
   );
 }

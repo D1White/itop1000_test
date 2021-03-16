@@ -5,7 +5,7 @@ import './popup.scss'
 import { Input, RadioInput } from '../index'
 import { updateProfile, createProfile } from '../../redux/actions/profiles'
 
-const ProfilePopup = ({ popupVisible, profileId }) => {
+const ProfilePopup = ({ popupVisible, profileId, userId }) => {
     const dispatch = useDispatch();
 
     const [name, setName] = useState('');
@@ -59,14 +59,14 @@ const ProfilePopup = ({ popupVisible, profileId }) => {
                         gender,
                         birthdate,
                         city
-                    }));
+                    }, userId));
                 }else {
                     dispatch(updateProfile(profileId, {
                         name,
                         gender,
                         birthdate,
                         city
-                    }));
+                    }, userId));
                 }
                 popupVisible('');
             } else {

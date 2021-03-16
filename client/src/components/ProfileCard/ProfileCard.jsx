@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux'
 import "./profile_card.scss";
 import { deleteProfile } from '../../redux/actions/profiles'
 
-const ProfileCard = ({ name, gender, birthdate, city, id, setEditableProfile }) => {
+const ProfileCard = ({ name, gender, birthdate, city, id, setEditableProfile, user_id }) => {
     const dispatch = useDispatch();
 
     const ConvertDate = () => {
@@ -16,7 +16,7 @@ const ProfileCard = ({ name, gender, birthdate, city, id, setEditableProfile }) 
     }
 
     const Delete = () => {
-        dispatch(deleteProfile(id));
+        dispatch(deleteProfile(id, user_id));
     }
 
     const Edit = () => {

@@ -6,12 +6,14 @@ import { ProfileCard } from "../index";
 import { fetchProfiles } from "../../redux/actions/profiles";
 import plus_ico from "../../assets/ico/plus.svg";
 
-const Profiles = ({ setEditableProfile }) => {
+const Profiles = ({ setEditableProfile, user_id }) => {
     const dispatch = useDispatch();
     const { profiles, isLoading } = useSelector(({ profiles }) => profiles);
 
     useEffect(() => {
-        dispatch(fetchProfiles());
+        if (user_id) {
+            dispatch(fetchProfiles(user_id));
+        }
     }, []);// eslint-disable-line react-hooks/exhaustive-deps
 
     const createProfile = () => {
@@ -37,6 +39,7 @@ const Profiles = ({ setEditableProfile }) => {
                                     city={profile.city}
                                     id={profile._id}
                                     setEditableProfile={setEditableProfile}
+                                    user_id={user_id}
                                 />
                             ))}
                             <div className="profileCard add" onClick={createProfile}>
