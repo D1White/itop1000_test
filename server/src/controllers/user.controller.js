@@ -45,11 +45,9 @@ class UserController {
             }
 
             const user = await UserModel.findById(userId).exec();
-            const profiles = await ProfileModel.find({ user_id: userId }).select('-user_id -__v').exec();
 
             res.json({
-                ...user,
-                profiles
+                data: user
             });
         } catch (error) {
             res.status(500).json({

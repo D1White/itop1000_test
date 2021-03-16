@@ -64,7 +64,7 @@ class ProfileController {
                 gender: req.body.gender,
                 birthdate: req.body.birthdate,
                 city: req.body.city,
-                user_id: req.user._id,
+                user_id: req.body.user_id || req.user._id,
             };
 
             const profile = await ProfileModel.create(data);
