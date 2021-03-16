@@ -9,3 +9,4 @@ export {default as RadioInput} from './RadioInput/RadioInput';
 export {default as Profiles} from './Profiles/Profiles';
 export {default as ProfileCard} from './ProfileCard/ProfileCard';
 export {default as DashboardCard} from './DashboardCard/DashboardCard';
+export {default as UserCard} from './UserCard/UserCard';
