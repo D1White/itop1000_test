@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import axios from 'axios'
+import { Link } from 'react-router-dom'
 
 import { Header, UserCard } from '../../components'
 import './users.scss';
@@ -26,11 +27,12 @@ const Users = () => {
                         <h2 className="block__title">Users:</h2>
                         <div className="users__block">
                             { users && users.map((user) => (
-                                <UserCard
-                                    key={user._id}
-                                    username={user.username}
-                                    email={user.email}
-                                />
+                                <Link to={`/user/${user._id}`} key={user._id}>
+                                    <UserCard
+                                        username={user.username}
+                                        email={user.email}
+                                    />
+                                </Link>
                             ))}
                         </div>
                     </div>

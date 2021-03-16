@@ -1,11 +1,13 @@
 import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import { useParams } from 'react-router-dom'
 
 import { Header, UserController, UserPopup, Profiles, ProfilePopup } from '../components'
 import { fetchUser } from '../redux/actions/user'
 
 const Main = () => {
     const dispatch = useDispatch();
+    const { id } = useParams();
     const { user } = useSelector(({ user }) => user);
     const [userPopupVisible, setUserPopupVisible] = useState(false);
     const [editableProfile, setEditableProfile] = useState('');
@@ -15,6 +17,10 @@ const Main = () => {
             dispatch(fetchUser())
         }
     }, []);// eslint-disable-line react-hooks/exhaustive-deps
+
+    useEffect(() => {
+        console.log(id);
+    }, [id])
 
     return (
         <>

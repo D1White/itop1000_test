@@ -21,5 +21,10 @@
         font-weight: 500;
         letter-spacing: 0.75px;
         margin-bottom: 20px;
+        color: $body;
+    }
+
+    &__text {
+        color: $body;
     }
 }
