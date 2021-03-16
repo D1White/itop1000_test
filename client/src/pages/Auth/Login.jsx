@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from 'react-redux'
-import { Redirect } from 'react-router-dom'
+import { Redirect, Link } from 'react-router-dom'
 
 import "./auth.scss";
 import { Input } from "../../components";
@@ -49,10 +49,10 @@ const Login = () => {
     }
 
     return (
-        <div className="login">
+        <div className="auth">
             { redirect && user && <Redirect to='/' />}
-            <h1 className="login__header">Authorization</h1>
-            <div className="login__inputs">
+            <h1 className="auth__header">Authorization</h1>
+            <div className="auth__inputs">
                 <Input
                     title="Username/email"
                     width={400}
@@ -67,9 +67,12 @@ const Login = () => {
                     type={'password'}
                 />
             </div>
-            <button type='button' className='login__button' onClick={Login}>
+            <button type='button' className='auth__button' onClick={Login}>
                 Sign In
             </button>
+            <Link to='/registration' className='auth__link'>
+                no account
+            </Link>
         </div>
     );
 };

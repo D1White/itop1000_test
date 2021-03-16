@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Redirect } from 'react-router-dom'
+import { Redirect, Link } from 'react-router-dom'
 
 import "./auth.scss";
 import { Input, Checkbox } from "../../components";
@@ -66,9 +66,9 @@ const Register = () => {
     }
 
     return (
-        <div className="login">
-            <h1 className="login__header">Create your account</h1>
-            <div className="login__inputs">
+        <div className="auth">
+            <h1 className="auth__header">Create your account</h1>
+            <div className="auth__inputs">
                 <Input
                     title="Username"
                     width={400}
@@ -94,9 +94,12 @@ const Register = () => {
                     text='isAdmin'
                 />
             </div>
-            <button type='button' className='login__button' onClick={Register}>
+            <button type='button' className='auth__button' onClick={Register}>
                 Sign Up
             </button>
+            <Link to='/login' className='auth__link'>
+                already have an account
+            </Link>
         </div>
     );
 };
