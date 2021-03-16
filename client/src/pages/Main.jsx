@@ -11,9 +11,7 @@ const Main = () => {
     const [editableProfile, setEditableProfile] = useState('');
 
     useEffect(() => {
-        if (!user) {
-            dispatch(fetchUser())
-        }
+        dispatch(fetchUser())
     }, []);// eslint-disable-line react-hooks/exhaustive-deps
 
     return (

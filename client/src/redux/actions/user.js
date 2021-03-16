@@ -28,16 +28,7 @@ export const login = (username, password) => (dispatch) => {
     });
 }
 
-export const fetchUser = (id) => (dispatch) => {
-    if (id) {
-        axios.get(`/users/${id}`, {
-            headers: {
-                token: localStorage.getItem('token')
-            }
-        }).then( user => {
-            dispatch(setRouteUser(user.data.data))
-        })
-    } else {
+export const fetchUser = () => (dispatch) => {
         axios.get('/users/me', {
             headers: {
                 token: localStorage.getItem('token')
@@ -45,17 +36,12 @@ export const fetchUser = (id) => (dispatch) => {
         }).then( user => {
             dispatch(setUser(user.data));
         })
-    }
 }
 
-export const updateUser = (id, user, isMainUser) => (dispatch) => {
+export const updateUser = (id, user) => (dispatch) => {
     axios.patch(`/users/${id}` , user, {
         headers: { token: localStorage.getItem('token') }
     }).then( _ => {
-        if (isMainUser) {
-            dispatch(fetchUser());
-        } else {
-            dispatch(fetchUser(id));
-        }
+        dispatch(fetchUser());
     })
 }

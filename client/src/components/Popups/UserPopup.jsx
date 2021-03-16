@@ -1,14 +1,13 @@
 import { useState, useEffect } from 'react'
-import { useSelector, useDispatch } from 'react-redux'
-import axios from 'axios'
+import { useDispatch } from 'react-redux'
 
 import './popup.scss'
 import { Input, RadioInput } from '../index'
-import { fetchUser, updateUser } from '../../redux/actions/user'
+import { updateUser } from '../../redux/actions/user'
+import { updateRouteUser } from '../../redux/actions/routeUser'
 
 const UserPopup = ({ popupVisible, userId , isMainUser }) => {
     const dispatch = useDispatch();
-    // const { user } = useSelector(({ user }) => user);
 
     const [username, setUsername] = useState('');
     const [email, setEmail] = useState('');
@@ -40,11 +39,20 @@ const UserPopup = ({ popupVisible, userId , isMainUser }) => {
 
     const Submit = () => {
         if (username.length > 0 && email.length > 0 && role) {
-            dispatch(updateUser(userId, {
-                username,
-                email,
-                isAdmin: role === 'admin' ? true : false,
-            }, isMainUser));
+            if (isMainUser) {
+                dispatch(updateUser(userId, {
+                    username,
+                    email,
+                    isAdmin: role === 'admin' ? true : false,
+                }));
+            } else {
+                dispatch(updateRouteUser(userId, {
+                    username,
+                    email,
+                    isAdmin: role === 'admin' ? true : false,
+                }));
+            }
+
             popupVisible(false);
         } else {
             alert('⚠ Not all fields are filled in!');

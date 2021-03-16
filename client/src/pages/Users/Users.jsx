@@ -1,11 +1,14 @@
 import { useEffect, useState } from 'react'
 import axios from 'axios'
 import { Link } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
 
 import { Header, UserCard } from '../../components'
 import './users.scss';
+import { setRouteUser } from '../../redux/actions/routeUser'
 
 const Users = () => {
+    const dispatch = useDispatch();
     const [users, setUsers] = useState([]);
 
     useEffect(() => {
@@ -15,8 +18,10 @@ const Users = () => {
             }
         }).then( statistic => {
             setUsers(statistic.data.data);
-        })
-    }, [])
+        });
+
+        dispatch(setRouteUser(null))
+    }, []);// eslint-disable-line react-hooks/exhaustive-deps
 
     return (
         <>

@@ -3,22 +3,19 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom'
 
 import { Header, UserController, UserPopup, Profiles, ProfilePopup } from '../components'
-import { fetchUser } from '../redux/actions/user'
+import { fetchRouteUser } from '../redux/actions/routeUser'
 
 const User = () => {
     const dispatch = useDispatch();
     const { id } = useParams();
-    const { user, routeUser } = useSelector(({ user }) => user);
+    // const { user, routeUser } = useSelector(({ user }) => user);
+    const { routeUser } = useSelector(({ routeUser }) => routeUser);
     const [userPopupVisible, setUserPopupVisible] = useState(false);
     const [editableProfile, setEditableProfile] = useState('');
 
     useEffect(() => {
-        dispatch(fetchUser(id))
+        dispatch(fetchRouteUser(id))
     }, []);// eslint-disable-line react-hooks/exhaustive-deps
-
-    useEffect(() => {
-        console.log(id);
-    }, [id])
 
     return (
         <>
@@ -26,7 +23,7 @@ const User = () => {
                 <ProfilePopup
                     popupVisible={setEditableProfile}
                     profileId={editableProfile}
-                    userId={user._id}
+                    userId={id}
                 />
             )}
             { userPopupVisible && (
@@ -38,7 +35,7 @@ const User = () => {
             )}
             <Header />
             <UserController popupVisible={setUserPopupVisible} propsUser={routeUser} />
-            { user && <Profiles setEditableProfile={setEditableProfile} user_id={user._id} /> }
+            { routeUser && <Profiles setEditableProfile={setEditableProfile} user_id={routeUser._id} /> }
         </>
     )
 }

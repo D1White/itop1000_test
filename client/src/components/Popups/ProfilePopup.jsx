@@ -58,14 +58,15 @@ const ProfilePopup = ({ popupVisible, profileId, userId }) => {
                         name,
                         gender,
                         birthdate,
-                        city
+                        city,
+                        user_id: userId
                     }, userId));
                 }else {
                     dispatch(updateProfile(profileId, {
                         name,
                         gender,
                         birthdate,
-                        city
+                        city,
                     }, userId));
                 }
                 popupVisible('');
