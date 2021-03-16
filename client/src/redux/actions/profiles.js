@@ -13,7 +13,7 @@ export const setProfilesLoading = (isLoading) => ({
 export const fetchProfiles = (user_id) => (dispatch) => {
     dispatch(setProfilesLoading(true));
 
-    axios.get(`/profiles/${user_id}`, {
+    axios.get(`/api/profiles/${user_id}`, {
         headers: {
             token: localStorage.getItem('token')
         }
@@ -23,7 +23,7 @@ export const fetchProfiles = (user_id) => (dispatch) => {
 }
 
 export const deleteProfile = (id, user_id) => (dispatch) => {
-    axios.delete(`/profiles/${id}`, {
+    axios.delete(`/api/profiles/${id}`, {
         headers: {
             token: localStorage.getItem('token')
         }
@@ -33,7 +33,7 @@ export const deleteProfile = (id, user_id) => (dispatch) => {
 }
 
 export const updateProfile = (id, profile, userId) => (dispatch) => {
-    axios.patch(`/profiles/${id}`, profile, {
+    axios.patch(`/api/profiles/${id}`, profile, {
         headers: {
             token: localStorage.getItem('token')
         }
@@ -43,7 +43,7 @@ export const updateProfile = (id, profile, userId) => (dispatch) => {
 }
 
 export const createProfile = (profile, userId) => (dispatch) => {
-    axios.post(`/profiles`, profile, {
+    axios.post(`/api/profiles`, profile, {
         headers: {
             token: localStorage.getItem('token')
         }

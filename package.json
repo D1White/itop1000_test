@@ -1,0 +1,21 @@
+{
+  "name": "itop1000_test",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start-server": "npm run dev --prefix ./server",
+    "start-client": "npm run start --prefix ./client",
+    "install-server": "npm install --prefix ./server",
+    "install-client": "npm install --prefix ./client"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/D1White/itop1000_test.git"
+  },
+  "author": "D1White",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/D1White/itop1000_test/issues"
+  }
+}
