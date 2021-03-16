@@ -1,10 +1,11 @@
 import { useState, useEffect } from "react";
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { Redirect, Link } from 'react-router-dom'
+import axios from 'axios'
 
 import "./auth.scss";
 import { Input } from "../../components";
-import { login } from '../../redux/actions/user'
+import { setUser } from '../../redux/actions/user'
 
 const Login = () => {
     const dispatch = useDispatch();
@@ -16,8 +17,6 @@ const Login = () => {
         password: false,
     });
     const [redirect, setRedirect] = useState(false)
-
-    const { user } = useSelector(({ user }) => user);
 
     useEffect(() => {
         if (username) {
@@ -41,14 +40,22 @@ const Login = () => {
 
     const Login = () => {
         if (username.length > 0 && password.length > 0) {
-            dispatch(login(username, password));
-            setRedirect(true);
+            axios.post('/api/auth/login', {
+                username,
+                password,
+            }).then( req => {
+                if(req.data) {
+                    localStorage.setItem('token', req.data.token);
+                    dispatch(setUser(req.data));
+                    setRedirect(true);
+                }
+            });
         } else {
             alert('⚠ Not all fields are filled in!');
         }
     }
 
-    if (redirect && user) {
+    if (redirect) {
         return <Redirect to='/'/>
     }
 

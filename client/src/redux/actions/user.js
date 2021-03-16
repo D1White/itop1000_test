@@ -15,18 +15,18 @@ export const setRouteUser = (routeUser) => ({
     payload: routeUser,
 });
 
-export const login = (username, password) => (dispatch) => {
-    dispatch(setUserLoaded(false))
-    axios.post('/api/auth/login', {
-        username: username,
-        password: password,
-    }).then( req => {
-        if(req.data) {
-            localStorage.setItem('token', req.data.token);
-            dispatch(setUser(req.data))
-        }
-    });
-}
+// export const login = (username, password) => (dispatch) => {
+//     dispatch(setUserLoaded(false))
+//     axios.post('/api/auth/login', {
+//         username: username,
+//         password: password,
+//     }).then( req => {
+//         if(req.data) {
+//             localStorage.setItem('token', req.data.token);
+//             dispatch(setUser(req.data))
+//         }
+//     });
+// }
 
 export const fetchUser = () => (dispatch) => {
         axios.get('/api/users/me', {
