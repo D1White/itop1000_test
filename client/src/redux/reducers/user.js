@@ -1,6 +1,7 @@
 const initialState = {
     user: null,
-    isLoaded: false
+    isLoaded: false,
+    routeUser: null,
   };
 
   const user = (state = initialState, action) => {
@@ -15,6 +16,12 @@ const initialState = {
         return {
             ...state,
             isLoaded: action.payload,
+        };
+    case "SET_ROTE_USER":
+        return {
+            ...state,
+            routeUser: action.payload,
+            isLoaded: false,
         };
       default:
         return state;

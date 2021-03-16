@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux'
 
 import './user_controller.scss';
 
-const UserController = ({ popupVisible }) => {
+const UserController = ({ popupVisible, propsUser }) => {
     const { user } = useSelector(({ user }) => user);
 
     const Edit = () => {
@@ -16,11 +16,11 @@ const UserController = ({ popupVisible }) => {
 
     return (
         <div className='userCtrl'>
-            { user ? (
+            { propsUser ? (
                 <>
-                    <span className="userCtrl__username">{user.username}</span>
-                    <span className="userCtrl__username">{user.email}</span>
-                    <span className="userCtrl__role">{user.isAdmin ? 'admin' : 'user'}</span>
+                    <span className="userCtrl__username">{propsUser.username}</span>
+                    <span className="userCtrl__username">{propsUser.email}</span>
+                    <span className="userCtrl__role">{propsUser.isAdmin ? 'admin' : 'user'}</span>
                     { user.isAdmin && (
                         <div className="userCtrl__buttons">
                             <button

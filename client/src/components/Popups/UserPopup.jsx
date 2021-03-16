@@ -4,11 +4,11 @@ import axios from 'axios'
 
 import './popup.scss'
 import { Input, RadioInput } from '../index'
-import { fetchUser } from '../../redux/actions/user'
+import { fetchUser, updateUser } from '../../redux/actions/user'
 
-const UserPopup = ({ popupVisible }) => {
+const UserPopup = ({ popupVisible, userId , isMainUser }) => {
     const dispatch = useDispatch();
-    const { user } = useSelector(({ user }) => user);
+    // const { user } = useSelector(({ user }) => user);
 
     const [username, setUsername] = useState('');
     const [email, setEmail] = useState('');
@@ -40,16 +40,12 @@ const UserPopup = ({ popupVisible }) => {
 
     const Submit = () => {
         if (username.length > 0 && email.length > 0 && role) {
-            axios.patch(`/users/${user._id}` ,{
+            dispatch(updateUser(userId, {
                 username,
                 email,
                 isAdmin: role === 'admin' ? true : false,
-            }, {
-                headers: { token: localStorage.getItem('token') }
-            }).then( _ => {
-                dispatch(fetchUser());
-                popupVisible(false);
-            })
+            }, isMainUser));
+            popupVisible(false);
         } else {
             alert('⚠ Not all fields are filled in!');
         }
