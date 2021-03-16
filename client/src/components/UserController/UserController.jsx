@@ -1,17 +1,30 @@
-import React from 'react'
-import { useSelector } from 'react-redux'
+import { useState } from 'react'
+import { useSelector } from 'react-redux';
+import { Redirect } from 'react-router-dom'
 
 import './user_controller.scss';
+import { deleteUser } from '../../redux/actions/user'
 
 const UserController = ({ popupVisible, propsUser }) => {
     const { user } = useSelector(({ user }) => user);
+    const [deleted, setDeleted] = useState(false)
 
     const Edit = () => {
         popupVisible(true);
     }
 
     const Delete = () => {
+        deleteUser(propsUser._id);
+        setDeleted(true);
+    }
 
+    if (deleted) {
+        if (user._id === propsUser._id) {
+            localStorage.removeItem('token');
+            localStorage.removeItem('persist:root');
+            return <Redirect to='/login'/>
+        }
+        return <Redirect to='/'/>
     }
 
     return (

@@ -45,3 +45,15 @@ export const updateUser = (id, user) => (dispatch) => {
         dispatch(fetchUser());
     })
 }
+
+export const deleteUser = (user_id) => {
+    axios.delete(`/users/${user_id}`, {
+        headers: { token: localStorage.getItem('token') }
+    });
+}
+
+
+export const register = (user) => {
+    axios.post('/auth/register', user).then( req => {
+    });
+}

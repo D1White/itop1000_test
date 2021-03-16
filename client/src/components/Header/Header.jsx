@@ -29,18 +29,22 @@ const Header = () => {
                         <span className="header__username">1White</span>
                     </div>
                     <nav className="header__navigation">
-                        <Link to='/' className='header__link' >
-                            <span className="header__link__text">Profiles</span>
-                            <img src={person} alt="Profiles"/>
-                        </Link>
-                        <Link to='/dashboard' className='header__link' >
-                            <span className="header__link__text">Dashboard</span>
-                            <img src={dashboard} alt="Dashboard"/>
-                        </Link>
-                        <Link to='/users' className='header__link' >
-                            <span className="header__link__text">Users</span>
-                            <img src={users} alt="Users"/>
-                        </Link>
+                        { user && user.isAdmin && (
+                            <>
+                                <Link to='/' className='header__link' >
+                                    <span className="header__link__text">Profiles</span>
+                                    <img src={person} alt="Profiles"/>
+                                </Link>
+                                <Link to='/dashboard' className='header__link' >
+                                    <span className="header__link__text">Dashboard</span>
+                                    <img src={dashboard} alt="Dashboard"/>
+                                </Link>
+                                <Link to='/users' className='header__link' >
+                                    <span className="header__link__text">Users</span>
+                                    <img src={users} alt="Users"/>
+                                </Link>
+                            </>
+                        )}
                         <Link to='/login' className='header__link' onClick={Logout} >
                             <span className="header__link__text">Log out</span>
                         </Link>

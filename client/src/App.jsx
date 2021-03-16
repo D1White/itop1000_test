@@ -5,7 +5,7 @@ function App() {
   return (
     <Switch>
         <Route exact path='/login' component={Login} />
-        <Route exact path='/register' component={Register} />
+        <Route exact path='/registration' component={Register} />
         <AdminRoute exact path='/dashboard' component={Dashboard} />
         <AdminRoute exact path='/users' component={Users} />
         <AdminRoute path='/user/:id' component={User} />

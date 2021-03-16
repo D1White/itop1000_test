@@ -1,6 +1,9 @@
 import { useState, useEffect } from "react";
+import { Redirect } from 'react-router-dom'
+
 import "./auth.scss";
 import { Input, Checkbox } from "../../components";
+import { register } from '../../redux/actions/user'
 
 const Register = () => {
     const [username, setUsername] = useState("");
@@ -12,6 +15,7 @@ const Register = () => {
         email: false,
         password: false,
     });
+    const [redirect, setRedirect] = useState(false);
 
     useEffect(() => {
         if (username) {
@@ -45,10 +49,20 @@ const Register = () => {
 
     const Register = () => {
         if (username.length > 0 && password.length > 0 && email.length > 0) {
-            // dispatch(login(username, password));
+            register({
+                username,
+                email,
+                password,
+                isAdmin
+            });
+            setRedirect(true);
         } else {
             alert('⚠ Not all fields are filled in!');
         }
+    }
+
+    if (redirect) {
+        return <Redirect to='/login'/>
     }
 
     return (
