@@ -25,6 +25,8 @@
 
 Clone down this repository. You will need `Docker` installed globally on your machine.
 
+If there is an `"proxy": "http://localhost:5000",` line in the server/package.json, delete it.
+
 Create docker image:
 
 `docker build -t itop_test .`
