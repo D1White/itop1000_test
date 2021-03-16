@@ -13,6 +13,7 @@ const Header = () => {
 
     const Logout = () => {
         localStorage.removeItem('token');
+        localStorage.removeItem('persist:root');
     }
 
     return (

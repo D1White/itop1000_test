@@ -6,8 +6,8 @@ function App() {
     <Switch>
         <Route exact path='/login' component={Login} />
         <Route exact path='/register' component={Register} />
-        <PrivateRoute exact path='/' component={Main} />
         <AdminRoute exact path='/dashboard' component={Dashboard} />
+        <PrivateRoute exact path='/' component={Main} />
     </Switch>
   );
 }
