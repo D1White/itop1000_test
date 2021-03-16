@@ -48,9 +48,12 @@ const Login = () => {
         }
     }
 
+    if (redirect && user) {
+        return <Redirect to='/'/>
+    }
+
     return (
         <div className="auth">
-            { redirect && user && <Redirect to='/' />}
             <h1 className="auth__header">Authorization</h1>
             <div className="auth__inputs">
                 <Input
