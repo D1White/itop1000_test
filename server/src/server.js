@@ -29,6 +29,7 @@ app.post('/auth/register', createUserValidation, UserCtrl.create);
 app.post('/auth/login', passport.authenticate('local'), UserCtrl.afterLogin);
 
 app.get('/profiles', ProfileCtrl.index); // remove
+app.get('/profiles/:id', passport.authenticate('jwt', { session: false }), ProfileCtrl.show);
 app.post('/profiles', passport.authenticate('jwt', { session: false }), profileValidation, ProfileCtrl.create);
 app.patch('/profiles/:id', passport.authenticate('jwt', { session: false }), profileValidation, ProfileCtrl.update);
 app.delete('/profiles/:id', passport.authenticate('jwt', { session: false }), ProfileCtrl.delete);

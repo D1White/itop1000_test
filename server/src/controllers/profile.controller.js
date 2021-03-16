@@ -22,6 +22,33 @@ class ProfileController {
         }
     }
 
+    async show(req, res) {
+        try {
+            const profileId = req.params.id;
+            if (!isValidObjectId(profileId)) {
+                res.status(404).send();
+                return;
+            }
+
+            if (!req.user.isAdmin && JSON.stringify(req.user._id) !== JSON.stringify(profileId)) {
+                res.status(401).json({
+                    message: 'Not enough rights!'
+                })
+                return;
+            }
+
+            const profiles = await ProfileModel.find({ user_id: profileId }).exec();
+
+            res.json({
+                data: profiles,
+            });
+        } catch (error) {
+            res.status(500).json({
+                message: error,
+            });
+        }
+    }
+
     async create(req, res) {
         try {
             const errors = validationResult(req);
@@ -105,7 +132,7 @@ class ProfileController {
 
             const profile = await ProfileModel.findById(profileId).exec();
 
-            if (!req.user.isAdmin || JSON.stringify(req.user._id) !== JSON.stringify(profile.user_id)) {
+            if (!req.user.isAdmin && JSON.stringify(req.user._id) !== JSON.stringify(profile.user_id)) {
                 res.status(401).json({
                     message: 'Not enough rights!'
                 })
