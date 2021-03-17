@@ -15,6 +15,7 @@ const UserPopup = ({ popupVisible, userId , isMainUser }) => {
     const [warnings, setWarnings] = useState({
         username: false,
         email: false,
+        role: false,
     });
 
     useEffect(() => {
@@ -37,8 +38,40 @@ const UserPopup = ({ popupVisible, userId , isMainUser }) => {
         }
     }, [email]);// eslint-disable-line react-hooks/exhaustive-deps
 
+    useEffect(() => {
+        if (role) {
+            setWarnings({ ...warnings, role: false });
+        }
+    }, [role]);// eslint-disable-line react-hooks/exhaustive-deps
+
+    const checkRequiredField = () => {
+        let empty = {
+            username: false,
+            email: false,
+            role: false,
+        }
+        if (username.length === 0 || warnings.username) {
+            empty.username = true;
+        }
+
+        if (email.length === 0 || warnings.email) {
+            empty.email = true;
+        }
+
+        if (role.length === 0 || warnings.role) {
+            empty.role = true;
+        }
+
+        setWarnings(empty);
+
+        if (empty.username || empty.email || empty.role) {
+            return false
+        }
+        return true
+    }
+
     const Submit = () => {
-        if (username.length > 0 && email.length > 0 && role) {
+        if (checkRequiredField()) {
             if (isMainUser) {
                 dispatch(updateUser(userId, {
                     username,
@@ -54,8 +87,6 @@ const UserPopup = ({ popupVisible, userId , isMainUser }) => {
             }
 
             popupVisible(false);
-        } else {
-            alert('⚠ Not all fields are filled in!');
         }
     }
 
@@ -67,19 +98,20 @@ const UserPopup = ({ popupVisible, userId , isMainUser }) => {
         <div className='popup__bg'>
             <div className="popup">
                 <Input
-                    title='username:'
+                    title='username'
                     setValue={setUsername}
                     error={warnings.username}
                 />
                 <Input
-                    title='email:'
+                    title='email'
                     setValue={setEmail}
                     error={warnings.email}
                 />
                 <RadioInput
-                    title='role:'
+                    title='role'
                     setValue={setRole}
                     values={['user', 'admin']}
+                    error={warnings.role}
                 />
                 <div className="popup__buttons">
                     <button className='popup__button' onClick={Submit}>

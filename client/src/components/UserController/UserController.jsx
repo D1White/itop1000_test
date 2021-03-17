@@ -14,8 +14,10 @@ const UserController = ({ popupVisible, propsUser }) => {
     }
 
     const Delete = () => {
-        deleteUser(propsUser._id);
-        setDeleted(true);
+        if (window.confirm('You definitely want to delete the user?')) {
+            deleteUser(propsUser._id);
+            setDeleted(true);
+        }
     }
 
     if (deleted) {

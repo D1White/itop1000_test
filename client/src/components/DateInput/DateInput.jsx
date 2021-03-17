@@ -19,6 +19,7 @@ const DateInput = ({ title, error, setValue, value }) => {
                 className={"popup-date-picker"}
                 calendarClassName={"popup-react-calendar"}
                 minDate={new Date("1900-01-01T00:00:00")}
+                maxDate={new Date()}
             />
             {error && (
                 <span className="input__error">{`${

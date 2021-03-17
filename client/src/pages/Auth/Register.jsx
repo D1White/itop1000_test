@@ -49,21 +49,41 @@ const Register = () => {
         }
     }, [password]);// eslint-disable-line react-hooks/exhaustive-deps
 
+    const checkRequiredField = () => {
+        let empty = {
+            username: false,
+            email: false,
+            password: false,
+        }
+        if (username.length === 0 || warnings.username) {
+            empty.username = true;
+        }
+
+        if (email.length === 0 || warnings.email) {
+            empty.email = true;
+        }
+
+        if (password.length === 0 || warnings.password) {
+            empty.password = true;
+        }
+
+        setWarnings(empty);
+
+        if (empty.username || empty.password || empty.email) {
+            return false
+        }
+        return true
+    }
+
     const Register = () => {
-        if (!warnings.username && !warnings.email && !warnings.password) {
-            if (username.length > 0 && password.length > 0 && email.length > 0) {
-                register({
-                    username,
-                    email,
-                    password,
-                    isAdmin
-                });
-                setRedirect(true);
-            } else {
-                alert('⚠ Not all fields are filled in!');
-            }
-        } else {
-            alert('⚠ Correct the mistakes!');
+        if (checkRequiredField()) {
+            register({
+                username,
+                email,
+                password,
+                isAdmin
+            });
+            setRedirect(true);
         }
     }
 

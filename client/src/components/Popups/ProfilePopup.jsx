@@ -79,6 +79,7 @@ const ProfilePopup = ({ popupVisible, profileId, userId }) => {
         if (city.length === 0 || warnings.city) {
             empty.city = true;
         }
+
         setWarnings(empty);
 
         if (empty.name || empty.birthdate || empty.city || empty.birthdate || empty.gender) {

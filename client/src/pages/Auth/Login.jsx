@@ -38,24 +38,39 @@ const Login = () => {
         }
     }, [password]);// eslint-disable-line react-hooks/exhaustive-deps
 
+    const checkRequiredField = () => {
+        let empty = {
+            username: false,
+            password: false,
+        }
+        if (username.length === 0 || warnings.username) {
+            empty.username = true;
+        }
+
+        if (password.length === 0 || warnings.password) {
+            empty.password = true;
+        }
+
+        setWarnings(empty);
+
+        if (empty.username || empty.password) {
+            return false
+        }
+        return true
+    }
+
     const Login = () => {
-        if (!warnings.username && !warnings.email && !warnings.password) {
-            if (username.length > 0 && password.length > 0) {
-                axios.post('/api/auth/login', {
-                    username,
-                    password,
-                }).then( req => {
-                    if(req.data) {
-                        localStorage.setItem('token', req.data.token);
-                        dispatch(setUser(req.data));
-                        setRedirect(true);
-                    }
-                });
-            } else {
-                alert('⚠ Not all fields are filled in!');
-            }
-        } else {
-            alert('⚠ Correct the mistakes!');
+        if (checkRequiredField()) {
+            axios.post('/api/auth/login', {
+                username,
+                password,
+            }).then( req => {
+                if(req.data) {
+                    localStorage.setItem('token', req.data.token);
+                    dispatch(setUser(req.data));
+                    setRedirect(true);
+                }
+            });
         }
     }
 
