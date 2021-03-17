@@ -27,6 +27,8 @@ Clone down this repository. You will need `Docker` installed globally on your ma
 
 If there is an `"proxy": "http://localhost:5000",` line in the server/package.json, delete it.
 
+⚠ Don't forget to customize your `server/.env` file.
+
 Create docker image:
 
 `docker build -t itop_test .`
@@ -55,7 +57,7 @@ Add a line to server/package.json
 
 `"proxy": "http://localhost:5000",`
 
-⚠ Don't forget to customize your `.env` file.
+⚠ Don't forget to customize your `server/.env` file.
 
 To Start Server:
 
