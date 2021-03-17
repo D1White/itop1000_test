@@ -25,8 +25,6 @@
 
 Clone down this repository. You will need `Docker` installed globally on your machine.
 
-If there is an `"proxy": "http://localhost:5000",` line in the server/package.json, delete it.
-
 ⚠ Don't forget to customize your `server/.env` file.
 
 Create docker image:
@@ -52,10 +50,6 @@ Installation:
 `npm run install-server`
 
 `npm run install-client`
-
-Add a line to server/package.json
-
-`"proxy": "http://localhost:5000",`
 
 ⚠ Don't forget to customize your `server/.env` file.
 
