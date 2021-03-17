@@ -15,6 +15,9 @@ const Input = ({ title, error, width = 300, type='text', setValue }) => {
                 className={`input__field ${error ? 'error' : ''}`}
                 onChange={handleChange}
             />
+            { error && (
+                <span className="input__error">{`${title.charAt(0).toUpperCase() + title.slice(1)} is a required field`}</span>
+            )}
         </div>
     )
 }

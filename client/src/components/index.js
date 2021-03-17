@@ -10,3 +10,4 @@ export {default as Profiles} from './Profiles/Profiles';
 export {default as ProfileCard} from './ProfileCard/ProfileCard';
 export {default as DashboardCard} from './DashboardCard/DashboardCard';
 export {default as UserCard} from './UserCard/UserCard';
+export {default as DateInput} from './DateInput/DateInput';

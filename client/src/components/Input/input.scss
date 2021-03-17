@@ -26,11 +26,18 @@
         line-height: 34px;
         letter-spacing: 1px;
         color: $dark;
+        margin-bottom: 7px;
 
         transition: border 0.2s;
 
         &.error {
             border-bottom: 1px solid $red;
         }
+    }
+
+    &__error {
+        font-size: 10px;
+        letter-spacing: 0.75px;
+        color: $red;
     }
 }

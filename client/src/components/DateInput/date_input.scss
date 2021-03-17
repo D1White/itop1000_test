@@ -1,0 +1,33 @@
+@import '../../styles/variables.scss';
+
+.dateInput {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 25px;
+}
+
+.popup-date-picker {
+    display: inline-flex;
+    position: relative;
+    width: 100%;
+    margin-bottom: 7px;
+    border-bottom: 1px solid $dark;
+
+    &>.react-date-picker__wrapper {
+        border: none
+    }
+}
+
+.popup-react-calendar {
+    width: 350px;
+    max-width: 100%;
+    background: white;
+    border-radius: 8px;
+    border: 1px solid #a0a096;
+    font-family: 'Poppins', Arial, Helvetica, sans-serif;
+    line-height: 1.125em;
+
+    &>.react-calendar__viewContainer>.react-calendar__month-view>div>div>.react-calendar__month-view__weekdays>div{
+        font-size: 0.6em;
+    }
+}

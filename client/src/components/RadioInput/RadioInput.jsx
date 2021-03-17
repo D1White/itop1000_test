@@ -1,7 +1,7 @@
 import React from "react";
 import "./radio_input.scss";
 
-const RadioInput = ({ setValue, values, title }) => {
+const RadioInput = ({ setValue, values, title, error }) => {
 
     const onChangeValue = (event) => {
         setValue(event.target.value);
@@ -27,6 +27,9 @@ const RadioInput = ({ setValue, values, title }) => {
                     </div>
                 ))}
             </div>
+            { error && (
+                <span className="input__error">{`${title.charAt(0).toUpperCase() + title.slice(1)} is a required field`}</span>
+            )}
         </div>
     );
 };

@@ -1,12 +1,10 @@
 import { useState, useEffect } from 'react'
 import { useDispatch } from 'react-redux'
-import DatePicker from 'react-date-picker';
 
 import './popup.scss';
-import { Input, RadioInput } from '../index'
+import { Input, RadioInput, DateInput } from '../index'
 import { updateProfile, createProfile } from '../../redux/actions/profiles'
-import close_ico from '../../assets/ico/close.svg'
-import calendar_ico from '../../assets/ico/calendar.svg'
+
 
 const ProfilePopup = ({ popupVisible, profileId, userId }) => {
     const dispatch = useDispatch();
@@ -17,6 +15,7 @@ const ProfilePopup = ({ popupVisible, profileId, userId }) => {
     const [city, setCity] = useState('');
     const [warnings, setWarnings] = useState({
         name: false,
+        gender: false,
         birthdate: false,
         city: false,
     });
@@ -41,6 +40,18 @@ const ProfilePopup = ({ popupVisible, profileId, userId }) => {
         }
     }, [city]);// eslint-disable-line react-hooks/exhaustive-deps
 
+    useEffect(() => {
+        if (gender) {
+            setWarnings({ ...warnings, gender: false });
+        }
+    }, [gender]);// eslint-disable-line react-hooks/exhaustive-deps
+
+    useEffect(() => {
+        if (birthdate) {
+            setWarnings({ ...warnings, birthdate: false });
+        }
+    }, [birthdate]);// eslint-disable-line react-hooks/exhaustive-deps
+
     const convertDate = () => {
         const dd = String(birthdate.getDate()).padStart(2, '0');
         const mm = String(birthdate.getMonth() + 1).padStart(2, '0');
@@ -48,29 +59,53 @@ const ProfilePopup = ({ popupVisible, profileId, userId }) => {
         return `${dd}/${mm}/${yyyy}`
     }
 
+    const checkRequiredField = () => {
+        let empty = {
+            name: false,
+            gender: false,
+            birthdate: false,
+            city: false,
+        }
+        if (name.length === 0 || warnings.name) {
+            empty.name = true;
+        }
+        if (!birthdate || warnings.birthdate) {
+            empty.birthdate = true;
+        }
+        if (!gender || warnings.gender) {
+            empty.gender = true;
+        }
+
+        if (city.length === 0 || warnings.city) {
+            empty.city = true;
+        }
+        setWarnings(empty);
+
+        if (empty.name || empty.birthdate || empty.city || empty.birthdate || empty.gender) {
+            return false
+        }
+        return true
+    }
+
     const Submit = () => {
-        if (!warnings.name && !warnings.birthdate && !warnings.city) {
-            if (name.length > 0 && birthdate && gender && city.length > 0) {
-                if (profileId === 'create') {
-                    dispatch(createProfile({
-                        name,
-                        gender,
-                        birthdate: convertDate(),
-                        city,
-                        user_id: userId
-                    }, userId));
-                }else {
-                    dispatch(updateProfile(profileId, {
-                        name,
-                        gender,
-                        birthdate: convertDate(),
-                        city,
-                    }, userId));
-                }
-                popupVisible('');
-            } else {
-                alert('⚠ Not all fields are filled in!');
+        if (checkRequiredField()) {
+            if (profileId === 'create') {
+                dispatch(createProfile({
+                    name,
+                    gender,
+                    birthdate: convertDate(),
+                    city,
+                    user_id: userId
+                }, userId));
+            }else {
+                dispatch(updateProfile(profileId, {
+                    name,
+                    gender,
+                    birthdate: convertDate(),
+                    city,
+                }, userId));
             }
+            popupVisible('');
         }
     }
 
@@ -82,28 +117,24 @@ const ProfilePopup = ({ popupVisible, profileId, userId }) => {
         <div className='popup__bg'>
             <div className="popup">
                 <Input
-                    title='name:'
+                    title='name'
                     setValue={setName}
                     error={warnings.name}
                 />
                 <RadioInput
-                    title='gender:'
+                    title='gender'
                     setValue={setGender}
                     values={['male', 'female']}
+                    error={warnings.gender}
                 />
-                <DatePicker
-                    onChange={setBirthdate}
+                <DateInput
+                    title='birthdate'
                     value={birthdate}
-                    format={'dd.MM.yyyy'}
-                    locale={'en'}
-                    clearIcon={<img src={close_ico} alt="close"/>}
-                    calendarIcon={<img src={calendar_ico} alt="close"/>}
-                    className={'popup-date-picker'}
-                    calendarClassName={'popup-react-calendar'}
-                    minDate={new Date('1900-01-01T00:00:00')}
+                    setValue={setBirthdate}
+                    error={warnings.birthdate}
                 />
                 <Input
-                    title='city:'
+                    title='city'
                     setValue={setCity}
                     error={warnings.city}
                 />
