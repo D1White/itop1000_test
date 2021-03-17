@@ -56,7 +56,7 @@ const ProfilePopup = ({ popupVisible, profileId, userId }) => {
         const dd = String(birthdate.getDate()).padStart(2, '0');
         const mm = String(birthdate.getMonth() + 1).padStart(2, '0');
         const yyyy = birthdate.getFullYear();
-        return `${dd}/${mm}/${yyyy}`
+        return `${yyyy}-${mm}-${dd}`
     }
 
     const checkRequiredField = () => {

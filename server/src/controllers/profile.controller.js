@@ -62,7 +62,7 @@ class ProfileController {
             const data = {
                 name: req.body.name,
                 gender: req.body.gender,
-                birthdate: req.body.birthdate,
+                birthdate: new Date(req.body.birthdate),
                 city: req.body.city,
                 user_id: req.body.user_id || req.user._id,
             };
