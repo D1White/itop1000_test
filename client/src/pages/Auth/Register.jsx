@@ -28,8 +28,10 @@ const Register = () => {
     }, [username]);// eslint-disable-line react-hooks/exhaustive-deps
 
     useEffect(() => {
+        const regexp = /^([A-Z|a-z|0-9](\.|_){0,1})+[A-Z|a-z|0-9]@([A-Z|a-z|0-9])+((\.){0,1}[A-Z|a-z|0-9]){2}\.[a-z]{2,3}$/gm;
+
         if (email) {
-            if(email.length > 2 && email.length < 51) {
+            if(email.length > 2 && email.length < 51 && regexp.test(email)) {
                 setWarnings({ ...warnings, email: false });
             } else {
                 setWarnings({ ...warnings, email: true });
@@ -48,16 +50,20 @@ const Register = () => {
     }, [password]);// eslint-disable-line react-hooks/exhaustive-deps
 
     const Register = () => {
-        if (username.length > 0 && password.length > 0 && email.length > 0) {
-            register({
-                username,
-                email,
-                password,
-                isAdmin
-            });
-            setRedirect(true);
+        if (!warnings.username && !warnings.email && !warnings.password) {
+            if (username.length > 0 && password.length > 0 && email.length > 0) {
+                register({
+                    username,
+                    email,
+                    password,
+                    isAdmin
+                });
+                setRedirect(true);
+            } else {
+                alert('⚠ Not all fields are filled in!');
+            }
         } else {
-            alert('⚠ Not all fields are filled in!');
+            alert('⚠ Correct the mistakes!');
         }
     }
 
