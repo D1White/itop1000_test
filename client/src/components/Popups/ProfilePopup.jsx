@@ -1,9 +1,12 @@
 import { useState, useEffect } from 'react'
 import { useDispatch } from 'react-redux'
+import DatePicker from 'react-date-picker';
 
-import './popup.scss'
+import './popup.scss';
 import { Input, RadioInput } from '../index'
 import { updateProfile, createProfile } from '../../redux/actions/profiles'
+import close_ico from '../../assets/ico/close.svg'
+import calendar_ico from '../../assets/ico/calendar.svg'
 
 const ProfilePopup = ({ popupVisible, profileId, userId }) => {
     const dispatch = useDispatch();
@@ -29,18 +32,6 @@ const ProfilePopup = ({ popupVisible, profileId, userId }) => {
     }, [name]);// eslint-disable-line react-hooks/exhaustive-deps
 
     useEffect(() => {
-        const regexp = /^\d{1,2}(\.|-|\/)\d{1,2}(\.|-|\/)\d{4}$/g;
-
-        if (birthdate) {
-            if(regexp.test(birthdate)) {
-                setWarnings({ ...warnings, birthdate: false });
-            } else {
-                setWarnings({ ...warnings, birthdate: true });
-            }
-        }
-    }, [birthdate]);// eslint-disable-line react-hooks/exhaustive-deps
-
-    useEffect(() => {
         if (city) {
             if(city.length > 2 && city.length < 31) {
                 setWarnings({ ...warnings, city: false });
@@ -50,14 +41,21 @@ const ProfilePopup = ({ popupVisible, profileId, userId }) => {
         }
     }, [city]);// eslint-disable-line react-hooks/exhaustive-deps
 
+    const convertDate = () => {
+        const dd = String(birthdate.getDate()).padStart(2, '0');
+        const mm = String(birthdate.getMonth() + 1).padStart(2, '0');
+        const yyyy = birthdate.getFullYear();
+        return `${dd}/${mm}/${yyyy}`
+    }
+
     const Submit = () => {
         if (!warnings.name && !warnings.birthdate && !warnings.city) {
-            if (name.length > 0 && birthdate.length > 0 && gender && city.length > 0) {
+            if (name.length > 0 && birthdate && gender && city.length > 0) {
                 if (profileId === 'create') {
                     dispatch(createProfile({
                         name,
                         gender,
-                        birthdate,
+                        birthdate: convertDate(),
                         city,
                         user_id: userId
                     }, userId));
@@ -65,7 +63,7 @@ const ProfilePopup = ({ popupVisible, profileId, userId }) => {
                     dispatch(updateProfile(profileId, {
                         name,
                         gender,
-                        birthdate,
+                        birthdate: convertDate(),
                         city,
                     }, userId));
                 }
@@ -93,10 +91,16 @@ const ProfilePopup = ({ popupVisible, profileId, userId }) => {
                     setValue={setGender}
                     values={['male', 'female']}
                 />
-                <Input
-                    title='birthdate:'
-                    setValue={setBirthdate}
-                    error={warnings.birthdate}
+                <DatePicker
+                    onChange={setBirthdate}
+                    value={birthdate}
+                    format={'dd.MM.yyyy'}
+                    locale={'en'}
+                    clearIcon={<img src={close_ico} alt="close"/>}
+                    calendarIcon={<img src={calendar_ico} alt="close"/>}
+                    className={'popup-date-picker'}
+                    calendarClassName={'popup-react-calendar'}
+                    minDate={new Date('1900-01-01T00:00:00')}
                 />
                 <Input
                     title='city:'
