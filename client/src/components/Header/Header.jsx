@@ -26,7 +26,7 @@ const Header = () => {
                             alt="avatar"
                             className={`header__avatar ${user && user.isAdmin ? 'admin' : ''}`}
                         />
-                        <span className="header__username">1White</span>
+                        <span className="header__username">{user && user.username}</span>
                     </div>
                     <nav className="header__navigation">
                         { user && user.isAdmin && (
