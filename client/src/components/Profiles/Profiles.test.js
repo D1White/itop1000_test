@@ -8,11 +8,41 @@ jest.mock('../ProfileCard/ProfileCard.jsx', () => () => (
     <div data-testid='profileCard' />)
 )
 
-// jest.mock('./Profiles.jsx', () => {
-//     dispatch =
+// const mockFetchFn = jest.fn(() => Promise.resolve())
+
+// jest.mock('../../redux/actions/profiles.js', () => {
+//     return {
+//         fetchProfiles: jest.fn(() => Promise.resolve({}))
+//     }
 // })
 
+// const mockDispatchFn = jest.fn(() => Promise.resolve())
+
+// jest.mock('react-redux', () => {
+//     return jest.fn(() => {
+//         useDispatch: mockDispatchFn
+//     })
+// })
+
+const profiles = [{
+    _id: '604a03c47f815a05e8404f28',
+    name: 'Name_1',
+    gender: 'male',
+    birthdate: new Date(),
+    city: 'City_1',
+    user_id: '604a03c46f815a05e8404f28'
+}, {
+    _id: '604fcxc47f815a05e8404f28',
+    name: 'Name_2',
+    gender: 'female',
+    birthdate: new Date(),
+    city: 'City_2',
+    user_id: '604a03c46f815a05e8404f29'
+}]
+
+
 describe('Profiles', () => {
+
     it('title', () => {
         const { getByText } = renderWithRedux(<Profiles />, {
             profiles: { profiles: [] }
@@ -39,25 +69,14 @@ describe('Profiles', () => {
 
     it('render profile cards', () => {
         const { getAllByTestId } = renderWithRedux(<Profiles/>, {
-            profiles: {
-                profiles: [{
-                    _id: '604a03c47f815a05e8404f28',
-                    name: 'Name_1',
-                    gender: 'male',
-                    birthdate: new Date(),
-                    city: 'City_1',
-                    user_id: '604a03c46f815a05e8404f28'
-                }, {
-                    _id: '604fcxc47f815a05e8404f28',
-                    name: 'Name_2',
-                    gender: 'female',
-                    birthdate: new Date(),
-                    city: 'City_2',
-                    user_id: '604a03c46f815a05e8404f29'
-                }]
-            }
+            profiles: { profiles }
         })
         expect(getAllByTestId('profileCard')).toHaveLength(2)
     })
+
+    // it('fetch profiles', async () => {
+    //     const { getByText , debug } = renderWithRedux(<Profiles user_id={'604a03c46f815a05e8404f29'} />)
+    //     expect(mockFetchFn).toBeCalledTimes(1)
+    // })
 })
 

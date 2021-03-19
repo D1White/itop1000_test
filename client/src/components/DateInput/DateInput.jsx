@@ -8,7 +8,7 @@ import calendar_ico from '../../assets/ico/calendar.svg'
 const DateInput = ({ title, error, setValue, value }) => {
     return (
         <div className="dateInput">
-            <span className="input__title">birthdate</span>
+            <span className="input__title">{title}</span>
             <DatePicker
                 onChange={setValue}
                 value={value}
