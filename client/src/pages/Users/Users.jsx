@@ -16,8 +16,8 @@ const Users = () => {
             headers: {
                 token: localStorage.getItem('token')
             }
-        }).then( statistic => {
-            setUsers(statistic.data.data);
+        }).then( users => {
+            setUsers(users.data.data);
         });
 
         dispatch(setRouteUser(null))
