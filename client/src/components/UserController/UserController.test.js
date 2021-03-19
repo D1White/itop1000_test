@@ -22,13 +22,6 @@ const user = {
     password: 'd415a330f564dbcee53b209b5a99ecde'
 }
 
-// jest.mock('../../redux/actions/user.js', () => {
-//     const mockDelete = jest.fn();
-//     return {
-//         deleteUser: mockDelete,
-//         mockDelete
-//     }
-// })
 
 jest.mock('react-router-dom', () => {
     return {
