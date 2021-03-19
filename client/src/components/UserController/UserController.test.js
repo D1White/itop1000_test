@@ -1,9 +1,9 @@
-import { fireEvent, render, screen } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import "@testing-library/jest-dom/extend-expect";
 import userEvent from '@testing-library/user-event'
 import { renderWithRedux } from '../../utils/renderWithRedux'
+
 import UserController from "./UserController";
-import { useState } from 'react';
 
 
 const admin = {
@@ -22,6 +22,19 @@ const user = {
     password: 'd415a330f564dbcee53b209b5a99ecde'
 }
 
+// jest.mock('../../redux/actions/user.js', () => {
+//     const mockDelete = jest.fn();
+//     return {
+//         deleteUser: mockDelete,
+//         mockDelete
+//     }
+// })
+
+jest.mock('react-router-dom', () => {
+    return {
+        Redirect: () => { return(<div>Login</div>) },
+    }
+})
 
 describe('UserController', () => {
     it('render admin', () => {
@@ -61,9 +74,9 @@ describe('UserController', () => {
     })
 
     it('delte click', () => {
-        window.confirm = () => {}
+        window.confirm = () => {return true}
         const deleteFunc = jest.fn()
-        const { getByLabelText } = renderWithRedux(
+        const { getByLabelText, getByText } = renderWithRedux(
             <UserController propsUser={admin}/>,
             {
                 user: { user: admin }
@@ -74,6 +87,8 @@ describe('UserController', () => {
         document.querySelector('.delete').onclick = deleteFunc;
         userEvent.click(getByLabelText(/delete/i))
         expect(deleteFunc).toBeCalledTimes(1)
+
+        expect(getByText(/login/i)).toBeInTheDocument()
     })
 })
 
