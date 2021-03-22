@@ -1,22 +1,18 @@
-import { useEffect, useState } from 'react'
-import axios from 'axios'
+import { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 
 import './dashboard.scss';
 import { Header, DashboardCard } from '../../components'
+import { fetchStatistic } from '../../redux/actions/info'
 
 const Dashboard = () => {
-    const [statistic, setStatistic] = useState(null);
+    const dispatch = useDispatch();
+
+    const { statistic } = useSelector(({ info }) => info);
 
     useEffect(() => {
-        axios.get('/api/profiles/statistic', {
-            headers: {
-                token: localStorage.getItem('token')
-            }
-        }).then( statistic => {
-            setStatistic(statistic.data);
-        })
+        dispatch(fetchStatistic())
     }, [])
-
 
     return (
         <>
