@@ -4,12 +4,13 @@ import { Redirect, Link } from 'react-router-dom'
 
 import "./auth.scss";
 import { Input } from "../../components";
-import { login, setLogin } from '../../redux/actions/auth'
+// import { login, setLogin } from '../../redux/actions/auth'
+import { login, setLoggedIn } from '../../redux/actions/user'
 
 const Login = () => {
     const dispatch = useDispatch();
 
-    const { loggedIn } = useSelector(({ auth }) => auth);
+    const { loggedIn } = useSelector(({ user }) => user);
 
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
@@ -19,7 +20,7 @@ const Login = () => {
     });
 
     useEffect(() => {
-        dispatch(setLogin(false))
+        dispatch(setLoggedIn(false))
     }, [])
 
     useEffect(() => {
