@@ -21,7 +21,7 @@ const ProfileCard = ({ name, gender, birthdate, city, id, setEditableProfile, us
             <div className="profileCard__content">
                 <h3 className="profileCard__title">{name}</h3>
                 <span className="profileCard__text">{gender}</span>
-                <span className="profileCard__text">{convertDate()}</span>
+                <span className="profileCard__text">{convertDate(birthdate)}</span>
                 <span className="profileCard__text">{city}</span>
             </div>
             <div className="profileCard__buttons">
