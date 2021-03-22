@@ -21,7 +21,7 @@ export const setLoggedIn = (loggedIn) => ({
 });
 
 export const login = (username, password) => (dispatch) => {
-    axios.post('/api/auth/login', {
+    axios.post('/auth/login', {
         username,
         password,
     }).then( req => {
@@ -34,31 +34,22 @@ export const login = (username, password) => (dispatch) => {
 }
 
 export const fetchUser = () => (dispatch) => {
-        axios.get('/api/users/me', {
-            headers: {
-                token: localStorage.getItem('token')
-            }
-        }).then( user => {
+        axios.get('/users/me').then( user => {
             dispatch(setUser(user.data));
         })
 }
 
 export const updateUser = (id, user) => (dispatch) => {
-    axios.patch(`/api/users/${id}` , user, {
-        headers: { token: localStorage.getItem('token') }
-    }).then( _ => {
+    axios.patch(`/users/${id}` , user).then( _ => {
         dispatch(fetchUser());
     })
 }
 
 export const deleteUser = (user_id) => {
-    axios.delete(`/api/users/${user_id}`, {
-        headers: { token: localStorage.getItem('token') }
-    });
+    axios.delete(`/users/${user_id}`);
 }
 
 
 export const register = (user) => {
-    axios.post('/api/auth/register', user).then( req => {
-    });
+    axios.post('/auth/register', user).then( _ => {});
 }

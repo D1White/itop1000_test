@@ -12,19 +12,13 @@ export const setUserLoading = (isLoading) => ({
 
 export const fetchRouteUser = (id) => (dispatch) => {
     dispatch(setUserLoading(true));
-    axios.get(`/api/users/${id}`, {
-        headers: {
-            token: localStorage.getItem('token')
-        }
-    }).then( user => {
+    axios.get(`/users/${id}`).then( user => {
         dispatch(setRouteUser(user.data.data))
     })
 }
 
 export const updateRouteUser = (id, user) => (dispatch) => {
-    axios.patch(`/api/users/${id}` , user, {
-        headers: { token: localStorage.getItem('token') }
-    }).then( _ => {
+    axios.patch(`/users/${id}` , user).then( _ => {
         dispatch(fetchRouteUser(id));
     })
 }

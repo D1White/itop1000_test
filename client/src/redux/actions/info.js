@@ -12,21 +12,13 @@ export const setStatistic = (statistic) => ({
 
 
 export const fetchUsers = () => (dispatch) => {
-    axios.get('/api/users', {
-        headers: {
-            token: localStorage.getItem('token')
-        }
-    }).then( users => {
+    axios.get('/users').then( users => {
         dispatch(setUsers(users.data.data));
     });
 }
 
 export const fetchStatistic = () => (dispatch) => {
-    axios.get('/api/profiles/statistic', {
-        headers: {
-            token: localStorage.getItem('token')
-        }
-    }).then( statistic => {
+    axios.get('/profiles/statistic').then( statistic => {
         dispatch(setStatistic(statistic.data));
     })
 }

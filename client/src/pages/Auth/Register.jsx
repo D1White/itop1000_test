@@ -50,29 +50,15 @@ const Register = () => {
     }, [password]);// eslint-disable-line react-hooks/exhaustive-deps
 
     const checkRequiredField = () => {
-        let empty = {
-            username: false,
-            email: false,
-            password: false,
-        }
-        if (username.length === 0 || warnings.username) {
-            empty.username = true;
-        }
-
-        if (email.length === 0 || warnings.email) {
-            empty.email = true;
-        }
-
-        if (password.length === 0 || warnings.password) {
-            empty.password = true;
+        const empty = {
+            username: !username.length || warnings.username,
+            email: !email.length || warnings.email,
+            password: !password.length || warnings.password,
         }
 
         setWarnings(empty);
 
-        if (empty.username || empty.password || empty.email) {
-            return false
-        }
-        return true
+        return !(empty.username || empty.password || empty.email)
     }
 
     const Register = () => {

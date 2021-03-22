@@ -4,7 +4,6 @@ import { Redirect, Link } from 'react-router-dom'
 
 import "./auth.scss";
 import { Input } from "../../components";
-// import { login, setLogin } from '../../redux/actions/auth'
 import { login, setLoggedIn } from '../../redux/actions/user'
 
 const Login = () => {
@@ -44,24 +43,14 @@ const Login = () => {
     }, [password]);// eslint-disable-line react-hooks/exhaustive-deps
 
     const checkRequiredField = () => {
-        let empty = {
-            username: false,
-            password: false,
-        }
-        if (username.length === 0 || warnings.username) {
-            empty.username = true;
-        }
-
-        if (password.length === 0 || warnings.password) {
-            empty.password = true;
-        }
+        const empty = {
+            username: !username.length || warnings.username,
+            password: !password.length || warnings.password
+       };
 
         setWarnings(empty);
 
-        if (empty.username || empty.password) {
-            return false
-        }
-        return true
+        return !(empty.username || empty.password)
     }
 
     const Login = () => {
