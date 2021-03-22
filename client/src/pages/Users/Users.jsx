@@ -1,25 +1,19 @@
-import { useEffect, useState } from 'react'
-import axios from 'axios'
+import { useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 
 import { Header, UserCard } from '../../components'
 import './users.scss';
+import { fetchUsers } from '../../redux/actions/info'
 import { setRouteUser } from '../../redux/actions/routeUser'
 
 const Users = () => {
     const dispatch = useDispatch();
-    const [users, setUsers] = useState([]);
+
+    const { users } = useSelector(({ info }) => info);
 
     useEffect(() => {
-        axios.get('/api/users', {
-            headers: {
-                token: localStorage.getItem('token')
-            }
-        }).then( users => {
-            setUsers(users.data.data);
-        });
-
+        dispatch(fetchUsers())
         dispatch(setRouteUser(null))
     }, []);// eslint-disable-line react-hooks/exhaustive-deps
 
