@@ -1,5 +1,4 @@
 import { validationResult } from 'express-validator'
-
 import { ProfileModel } from '../models/profile.model'
 import { UserModel } from '../models/user.model'
 import { isValidObjectId } from '../utils/isValidObjectId'
@@ -13,9 +12,7 @@ class ProfileController {
         data: profiles,
       })
     } catch (error) {
-      res.status(500).json({
-        message: error,
-      })
+      res.status(500).json({ message: error })
     }
   }
 
