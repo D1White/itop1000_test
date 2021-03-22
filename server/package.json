@@ -9,8 +9,7 @@
     "build-babel": "babel -d ./build ./src -s",
     "build": "npm run clean && npm run build-babel",
     "start": "npm run build && node ./build/server.js",
-    "eslint": "node_modules/.bin/eslint src/",
-    "precommit": "lint-staged"
+    "eslint": "node_modules/.bin/eslint src/"
   },
   "author": "",
   "license": "ISC",
@@ -48,9 +47,14 @@
     "passport-jwt": "^4.0.0",
     "passport-local": "^1.0.0"
   },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged --relative"
+    }
+  },
   "lint-staged": {
     "*.{js}": [
-      "prettier --write",
+      "prettier --write src/**/*.js",
       "git add"
     ]
   }
