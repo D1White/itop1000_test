@@ -1,2 +1,3 @@
-import mongoose from 'mongoose';
-export const isValidObjectId = mongoose.Types.ObjectId.isValid;
+import mongoose from 'mongoose'
+
+export const isValidObjectId = mongoose.Types.ObjectId.isValid

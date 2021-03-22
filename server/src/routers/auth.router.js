@@ -5,5 +5,5 @@ import { passport } from '../core/passport'
 
 export const authRouter = express.Router()
 
-authRouter.post('/register', createUserValidation, UserCtrl.create);
-authRouter.post('/login', passport.authenticate('local'), UserCtrl.afterLogin);
+authRouter.post('/register', createUserValidation, UserCtrl.create)
+authRouter.post('/login', passport.authenticate('local'), UserCtrl.afterLogin)

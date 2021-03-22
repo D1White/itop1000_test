@@ -1,20 +1,20 @@
-import mongoose from "mongoose";
+import mongoose from 'mongoose'
 
 mongoose.connect(
-    process.env.MONGODB_URL,
-    {
-        useNewUrlParser: true,
-        useCreateIndex: true,
-        useUnifiedTopology: true,
-        useFindAndModify: false,
-    },
-    () => {
-        console.log("Connected to DB");
-    }
-);
+  process.env.MONGODB_URL,
+  {
+    useNewUrlParser: true,
+    useCreateIndex: true,
+    useUnifiedTopology: true,
+    useFindAndModify: false,
+  },
+  () => {
+    console.log('Connected to DB')
+  }
+)
 
-const db = mongoose.connection;
+const db = mongoose.connection
 
-db.on("error", console.error.bind(console, "connection error:"));
+db.on('error', console.error.bind(console, 'connection error:'))
 
-export { db, mongoose };
+export { db, mongoose }
