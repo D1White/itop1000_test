@@ -3,23 +3,16 @@ import { useDispatch } from 'react-redux'
 
 import "./profile_card.scss";
 import { deleteProfile } from '../../redux/actions/profiles'
+import { convertDate } from '../../utils/convertDate'
 
 const ProfileCard = ({ name, gender, birthdate, city, id, setEditableProfile, user_id }) => {
     const dispatch = useDispatch();
 
-    const ConvertDate = () => {
-        const date = new Date(birthdate);
-        const dd = String(date.getDate()).padStart(2, '0');
-        const mm = String(date.getMonth() + 1).padStart(2, '0');
-        const yyyy = date.getFullYear();
-        return `${dd}/${mm}/${yyyy}`
-    }
-
-    const Delete = () => {
+    const deleteClick = () => {
         dispatch(deleteProfile(id, user_id));
     }
 
-    const Edit = () => {
+    const editClick = () => {
         setEditableProfile(id);
     }
 
@@ -28,11 +21,11 @@ const ProfileCard = ({ name, gender, birthdate, city, id, setEditableProfile, us
             <div className="profileCard__content">
                 <h3 className="profileCard__title">{name}</h3>
                 <span className="profileCard__text">{gender}</span>
-                <span className="profileCard__text">{ConvertDate()}</span>
+                <span className="profileCard__text">{convertDate()}</span>
                 <span className="profileCard__text">{city}</span>
             </div>
             <div className="profileCard__buttons">
-                <button className="profileCard__button edit" onClick={Edit}>
+                <button className="profileCard__button edit" onClick={editClick}>
                     <span>edit</span>
                     <svg
                         width="18"
@@ -54,7 +47,7 @@ const ProfileCard = ({ name, gender, birthdate, city, id, setEditableProfile, us
                         />
                     </svg>
                 </button>
-                <button className="profileCard__button delete" onClick={Delete}>
+                <button className="profileCard__button delete" onClick={deleteClick}>
                     <span>delete</span>
                     <svg
                         width="20"
