@@ -1,9 +1,14 @@
 import React from 'react'
 import './checkbox.scss'
 
-const Checkbox = ({ setChecked, checked, text }) => {
+const Checkbox = ({ setChecked, checked, text, name }) => {
   const handleInputChange = (event) => {
-    setChecked(event.target.checked)
+    // setChecked(event.target.checked)
+    setChecked((prevState) => {
+      const obj = { ...prevState }
+      obj[`${name}`] = event.target.checked
+      return obj
+    })
   }
 
   return (

@@ -11,8 +11,10 @@ const Login = () => {
 
   const { loggedIn } = useSelector(({ user }) => user)
 
-  const [username, setUsername] = useState('')
-  const [password, setPassword] = useState('')
+  const [fields, setFields] = useState({
+    username: '',
+    password: '',
+  })
   const [warnings, setWarnings] = useState({
     username: false,
     password: false,
@@ -23,29 +25,29 @@ const Login = () => {
   }, [])
 
   useEffect(() => {
-    if (username) {
-      if (username.length > 2 && username.length < 51) {
+    if (fields.username) {
+      if (fields.username.length > 2 && fields.username.length < 51) {
         setWarnings({ ...warnings, username: false })
       } else {
         setWarnings({ ...warnings, username: true })
       }
     }
-  }, [username])
+  }, [fields.username])
 
   useEffect(() => {
-    if (password) {
-      if (password.length > 2 && password.length < 51) {
+    if (fields.password) {
+      if (fields.password.length > 2 && fields.password.length < 51) {
         setWarnings({ ...warnings, password: false })
       } else {
         setWarnings({ ...warnings, password: true })
       }
     }
-  }, [password])
+  }, [fields.password])
 
   const checkRequiredField = () => {
     const empty = {
-      username: !username.length || warnings.username,
-      password: !password.length || warnings.password,
+      username: !fields.username.length || warnings.username,
+      password: !fields.password.length || warnings.password,
     }
 
     setWarnings(empty)
@@ -55,7 +57,7 @@ const Login = () => {
 
   const Login = () => {
     if (checkRequiredField()) {
-      dispatch(login(username, password))
+      dispatch(login(fields))
     }
   }
 
@@ -71,13 +73,15 @@ const Login = () => {
           title="Username/email"
           width={400}
           error={warnings.username}
-          setValue={setUsername}
+          setValue={setFields}
+          name="username"
         />
         <Input
           title="Password"
           width={400}
           error={warnings.password}
-          setValue={setPassword}
+          setValue={setFields}
+          name="password"
           type="password"
         />
       </div>

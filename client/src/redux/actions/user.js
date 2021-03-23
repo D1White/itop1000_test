@@ -20,7 +20,7 @@ export const setLoggedIn = (loggedIn) => ({
   payload: loggedIn,
 })
 
-export const login = (username, password) => (dispatch) => {
+export const login = ({ username, password }) => (dispatch) => {
   axios
     .post('/auth/login', {
       username,

@@ -1,9 +1,13 @@
 import React from 'react'
 import './input.scss'
 
-const Input = ({ title, error, width = 300, type = 'text', setValue }) => {
+const Input = ({ title, error, width = 300, type = 'text', setValue, name }) => {
   const handleChange = (event) => {
-    setValue(event.target.value)
+    setValue((prevState) => {
+      const obj = { ...prevState }
+      obj[`${name}`] = event.target.value
+      return obj
+    })
   }
 
   return (
