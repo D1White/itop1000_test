@@ -9,9 +9,11 @@ import { updateRouteUser } from '../../redux/actions/routeUser'
 const UserPopup = ({ popupVisible, userId, isMainUser }) => {
   const dispatch = useDispatch()
 
-  const [username, setUsername] = useState('')
-  const [email, setEmail] = useState('')
-  const [role, setRole] = useState('')
+  const [fields, setFields] = useState({
+    username: '',
+    email: '',
+    role: '',
+  })
   const [warnings, setWarnings] = useState({
     username: false,
     email: false,
@@ -19,73 +21,61 @@ const UserPopup = ({ popupVisible, userId, isMainUser }) => {
   })
 
   useEffect(() => {
-    if (username) {
-      if (username.length > 2 && username.length < 51) {
+    if (fields.username) {
+      if (fields.username.length > 2 && fields.username.length < 51) {
         setWarnings({ ...warnings, username: false })
       } else {
         setWarnings({ ...warnings, username: true })
       }
     }
-  }, [username])
+  }, [fields.username])
 
   useEffect(() => {
-    if (email) {
-      if (email.length > 2 && email.length < 51) {
+    const regexp = /^([A-Z|a-z|0-9](\.|_){0,1})+[A-Z|a-z|0-9]@([A-Z|a-z|0-9])+((\.){0,1}[A-Z|a-z|0-9]){2}\.[a-z]{2,3}$/gm
+
+    if (fields.email) {
+      if (fields.email.length > 2 && fields.email.length < 51 && regexp.test(fields.email)) {
         setWarnings({ ...warnings, email: false })
       } else {
         setWarnings({ ...warnings, email: true })
       }
     }
-  }, [email])
+  }, [fields.email])
 
   useEffect(() => {
-    if (role) {
+    if (fields.role) {
       setWarnings({ ...warnings, role: false })
     }
-  }, [role])
+  }, [fields.role])
 
   const checkRequiredField = () => {
     const empty = {
-      username: false,
-      email: false,
-      role: false,
-    }
-    if (username.length === 0 || warnings.username) {
-      empty.username = true
-    }
-
-    if (email.length === 0 || warnings.email) {
-      empty.email = true
-    }
-
-    if (role.length === 0 || warnings.role) {
-      empty.role = true
+      username: !fields.username.length || warnings.username,
+      email: !fields.email.length || warnings.email,
+      role: !fields.role.length || warnings.role,
     }
 
     setWarnings(empty)
 
-    if (empty.username || empty.email || empty.role) {
-      return false
-    }
-    return true
+    return !(empty.username || empty.email || empty.role)
   }
 
-  const Submit = () => {
+  const submit = () => {
     if (checkRequiredField()) {
       if (isMainUser) {
         dispatch(
           updateUser(userId, {
-            username,
-            email,
-            isAdmin: role === 'admin',
+            username: fields.username,
+            email: fields.email,
+            isAdmin: fields.role === 'admin',
           }),
         )
       } else {
         dispatch(
           updateRouteUser(userId, {
-            username,
-            email,
-            isAdmin: role === 'admin',
+            username: fields.username,
+            email: fields.email,
+            isAdmin: fields.role === 'admin',
           }),
         )
       }
@@ -94,23 +84,24 @@ const UserPopup = ({ popupVisible, userId, isMainUser }) => {
     }
   }
 
-  const Cancel = () => {
+  const cancel = () => {
     popupVisible(false)
   }
 
   return (
     <div className="popup__bg">
       <div className="popup">
-        <Input title="username" setValue={setUsername} error={warnings.username} />
-        <Input title="email" setValue={setEmail} error={warnings.email} />
+        <Input title="username" setValue={setFields} error={warnings.username} name="username" />
+        <Input title="email" setValue={setFields} error={warnings.email} name="email" />
         <RadioInput
           title="role"
-          setValue={setRole}
+          setValue={setFields}
           values={['user', 'admin']}
           error={warnings.role}
+          name="role"
         />
         <div className="popup__buttons">
-          <button className="popup__button" onClick={Submit} type="button">
+          <button className="popup__button" onClick={submit} type="button">
             <svg
               width="24"
               height="24"
@@ -124,7 +115,7 @@ const UserPopup = ({ popupVisible, userId, isMainUser }) => {
               />
             </svg>
           </button>
-          <button className="popup__button" onClick={Cancel} type="button">
+          <button className="popup__button" onClick={cancel} type="button">
             <svg
               width="24"
               height="24"

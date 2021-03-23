@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux'
 
 import './profile_card.scss'
 import { deleteProfile } from '../../redux/actions/profiles'
-import { convertDate } from '../../utils/convertDate'
+import { dateFirst } from '../../utils/convertDate'
 
 const ProfileCard = ({ name, gender, birthdate, city, id, setEditableProfile, userId }) => {
   const dispatch = useDispatch()
@@ -21,7 +21,7 @@ const ProfileCard = ({ name, gender, birthdate, city, id, setEditableProfile, us
       <div className="profileCard__content">
         <h3 className="profileCard__title">{name}</h3>
         <span className="profileCard__text">{gender}</span>
-        <span className="profileCard__text">{convertDate(birthdate)}</span>
+        <span className="profileCard__text">{dateFirst(birthdate)}</span>
         <span className="profileCard__text">{city}</span>
       </div>
       <div className="profileCard__buttons">

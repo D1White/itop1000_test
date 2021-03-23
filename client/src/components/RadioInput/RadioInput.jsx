@@ -1,9 +1,14 @@
 import React from 'react'
 import './radio_input.scss'
 
-const RadioInput = ({ setValue, values, title, error }) => {
+const RadioInput = ({ setValue, values, title, error, name }) => {
   const onChangeValue = (event) => {
-    setValue(event.target.value)
+    // setValue(event.target.value)
+    setValue((prevState) => {
+      const obj = { ...prevState }
+      obj[`${name}`] = event.target.value
+      return obj
+    })
   }
 
   return (

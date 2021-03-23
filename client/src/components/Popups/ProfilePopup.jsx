@@ -4,14 +4,17 @@ import { useDispatch } from 'react-redux'
 import './popup.scss'
 import { Input, RadioInput, DateInput } from '../index'
 import { updateProfile, createProfile } from '../../redux/actions/profiles'
+import { yearFirst } from '../../utils/convertDate'
 
 const ProfilePopup = ({ popupVisible, profileId, userId }) => {
   const dispatch = useDispatch()
 
-  const [name, setName] = useState('')
-  const [gender, setGender] = useState('')
-  const [birthdate, setBirthdate] = useState('')
-  const [city, setCity] = useState('')
+  const [fields, setFields] = useState({
+    name: '',
+    gender: '',
+    birthdate: '',
+    city: '',
+  })
   const [warnings, setWarnings] = useState({
     name: false,
     gender: false,
@@ -20,83 +23,60 @@ const ProfilePopup = ({ popupVisible, profileId, userId }) => {
   })
 
   useEffect(() => {
-    if (name) {
-      if (name.length > 2 && name.length < 31) {
+    if (fields.name) {
+      if (fields.name.length > 2 && fields.name.length < 31) {
         setWarnings({ ...warnings, name: false })
       } else {
         setWarnings({ ...warnings, name: true })
       }
     }
-  }, [name])
+  }, [fields.name])
 
   useEffect(() => {
-    if (city) {
-      if (city.length > 2 && city.length < 31) {
+    if (fields.city) {
+      if (fields.city.length > 2 && fields.city.length < 31) {
         setWarnings({ ...warnings, city: false })
       } else {
         setWarnings({ ...warnings, city: true })
       }
     }
-  }, [city])
+  }, [fields.city])
 
   useEffect(() => {
-    if (gender) {
+    if (fields.gender) {
       setWarnings({ ...warnings, gender: false })
     }
-  }, [gender])
+  }, [fields.gender])
 
   useEffect(() => {
-    if (birthdate) {
+    if (fields.birthdate) {
       setWarnings({ ...warnings, birthdate: false })
     }
-  }, [birthdate])
-
-  const convertDate = () => {
-    const dd = String(birthdate.getDate()).padStart(2, '0')
-    const mm = String(birthdate.getMonth() + 1).padStart(2, '0')
-    const yyyy = birthdate.getFullYear()
-    return `${yyyy}-${mm}-${dd}`
-  }
+  }, [fields.birthdate])
 
   const checkRequiredField = () => {
     const empty = {
-      name: false,
-      gender: false,
-      birthdate: false,
-      city: false,
-    }
-    if (name.length === 0 || warnings.name) {
-      empty.name = true
-    }
-    if (!birthdate || warnings.birthdate) {
-      empty.birthdate = true
-    }
-    if (!gender || warnings.gender) {
-      empty.gender = true
-    }
-
-    if (city.length === 0 || warnings.city) {
-      empty.city = true
+      name: !fields.name.length || warnings.name,
+      gender: !fields.gender.length || warnings.gender,
+      birthdate: !fields.birthdate.length || warnings.birthdate,
+      city: !fields.city.length || warnings.city,
     }
 
     setWarnings(empty)
 
-    if (empty.name || empty.birthdate || empty.city || empty.birthdate || empty.gender) {
-      return false
-    }
-    return true
+    return !(empty.name || empty.gender || empty.birthdate || empty.city)
   }
 
-  const Submit = () => {
+  const submit = () => {
     if (checkRequiredField()) {
       if (profileId === 'create') {
         dispatch(
           createProfile(
             {
-              name,
-              gender,
-              birthdate: convertDate(),
-              city,
+              name: fields.name,
+              gender: fields.gender,
+              birthdate: yearFirst(fields.birthdate),
+              city: fields.city,
               user_id: userId,
             },
             userId,
@@ -107,10 +87,10 @@ const ProfilePopup = ({ popupVisible, profileId, userId }) => {
           updateProfile(
             profileId,
             {
-              name,
-              gender,
-              birthdate: convertDate(),
-              city,
+              name: fields.name,
+              gender: fields.gender,
+              birthdate: yearFirst(fields.birthdate),
+              city: fields.city,
             },
             userId,
           ),
@@ -120,29 +100,31 @@ const ProfilePopup = ({ popupVisible, profileId, userId }) => {
     }
   }
 
-  const Cancel = () => {
+  const cancel = () => {
     popupVisible('')
   }
 
   return (
     <div className="popup__bg">
       <div className="popup">
-        <Input title="name" setValue={setName} error={warnings.name} />
+        <Input title="name" setValue={setFields} error={warnings.name} name="name" />
         <RadioInput
           title="gender"
-          setValue={setGender}
+          setValue={setFields}
           values={['male', 'female']}
           error={warnings.gender}
+          name="gender"
         />
         <DateInput
           title="birthdate"
-          value={birthdate}
-          setValue={setBirthdate}
+          value={fields.birthdate}
+          setValue={setFields}
           error={warnings.birthdate}
+          name="birthdate"
         />
-        <Input title="city" setValue={setCity} error={warnings.city} />
+        <Input title="city" setValue={setFields} error={warnings.city} name="city" />
         <div className="popup__buttons">
-          <button className="popup__button" onClick={Submit} type="button">
+          <button className="popup__button" onClick={submit} type="button">
             <svg
               width="24"
               height="24"
@@ -156,7 +138,7 @@ const ProfilePopup = ({ popupVisible, profileId, userId }) => {
               />
             </svg>
           </button>
-          <button className="popup__button" onClick={Cancel} type="button">
+          <button className="popup__button" onClick={cancel} type="button">
             <svg
               width="24"
               height="24"
