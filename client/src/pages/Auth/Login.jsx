@@ -55,7 +55,7 @@ const Login = () => {
     return !(empty.username || empty.password)
   }
 
-  const Login = () => {
+  const loginClick = () => {
     if (checkRequiredField()) {
       dispatch(login(fields))
     }
@@ -85,7 +85,7 @@ const Login = () => {
           type="password"
         />
       </div>
-      <button type="button" className="auth__button" onClick={Login}>
+      <button type="button" className="auth__button" onClick={loginClick}>
         Sign In
       </button>
       <Link to="/registration" className="auth__link">
