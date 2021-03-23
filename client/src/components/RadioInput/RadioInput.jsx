@@ -3,7 +3,6 @@ import './radio_input.scss'
 
 const RadioInput = ({ setValue, values, title, error, name }) => {
   const onChangeValue = (event) => {
-    // setValue(event.target.value)
     setValue((prevState) => {
       const obj = { ...prevState }
       obj[`${name}`] = event.target.value

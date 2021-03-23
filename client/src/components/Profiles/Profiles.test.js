@@ -1,26 +1,9 @@
-// import { render, screen } from '@testing-library/react'
 import '@testing-library/jest-dom/extend-expect'
 import userEvent from '@testing-library/user-event'
 import { renderWithRedux } from '../../utils/renderWithRedux'
 import Profiles from './Profiles'
 
 jest.mock('../ProfileCard/ProfileCard.jsx', () => () => <div data-testid="profileCard" />)
-
-// const mockFetchFn = jest.fn(() => Promise.resolve())
-
-// jest.mock('../../redux/actions/profiles.js', () => {
-//     return {
-//         fetchProfiles: jest.fn(() => Promise.resolve({}))
-//     }
-// })
-
-// const mockDispatchFn = jest.fn(() => Promise.resolve())
-
-// jest.mock('react-redux', () => {
-//     return jest.fn(() => {
-//         useDispatch: mockDispatchFn
-//     })
-// })
 
 const profiles = [
   {
@@ -72,11 +55,4 @@ describe('Profiles', () => {
     })
     expect(getAllByTestId('profileCard')).toHaveLength(2)
   })
-
-  // it('fetch profiles', async () => {
-  //     const { getByText , debug } = renderWithRedux(
-  // <Profiles user_id={'604a03c46f815a05e8404f29'} />
-  // )
-  //     expect(mockFetchFn).toBeCalledTimes(1)
-  // })
 })

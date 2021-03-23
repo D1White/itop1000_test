@@ -6,14 +6,6 @@ import UserPopup from './UserPopup'
 
 jest.mock('../DateInput/DateInput.jsx', () => () => <div data-testid="datePicker" />)
 
-// jest.mock('react-redux', () => {
-//     const mockDispatchFn = jest.fn()
-//     return  {
-//         useDispatch: mockDispatchFn,
-//         mockDispatchFn
-//     }
-// })
-
 jest.mock('react-redux', () => ({
   useDispatch: jest.fn(),
 }))
@@ -21,7 +13,6 @@ jest.mock('react-redux', () => ({
 describe('ProfilePopup', () => {
   it('submit click', () => {
     const popupVisible = jest.fn()
-    // const { getAllByRole } = renderWithRedux(<ProfilePopup popupVisible={popupVisible} />)
     render(<ProfilePopup popupVisible={popupVisible} />)
     const submitBtn = screen.getAllByRole('button')[0]
     const submitFunc = jest.fn()
@@ -34,7 +25,6 @@ describe('ProfilePopup', () => {
 
   it('cancel click', () => {
     const cancelFunc = jest.fn()
-    // const { getAllByRole } = renderWithRedux(<ProfilePopup popupVisible={cancelFunc} />)
     render(<ProfilePopup popupVisible={cancelFunc} />)
     const cancelBtn = screen.getAllByRole('button')[1]
 

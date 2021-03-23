@@ -26,8 +26,6 @@ describe('Header', () => {
     document.querySelector('.header__link').onclick = logoutFunc
     userEvent.click(logoutBtn)
     expect(logoutFunc).toHaveBeenCalledTimes(1)
-
-    // expect(localStorage.removeItem).toHaveBeenCalledWith('token');
   })
 
   it('admin render', () => {
