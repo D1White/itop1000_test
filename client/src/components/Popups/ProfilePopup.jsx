@@ -58,7 +58,7 @@ const ProfilePopup = ({ popupVisible, profileId, userId }) => {
     const empty = {
       name: !fields.name.length || warnings.name,
       gender: !fields.gender.length || warnings.gender,
-      birthdate: !fields.birthdate.length || warnings.birthdate,
+      birthdate: !fields.birthdate || warnings.birthdate,
       city: !fields.city.length || warnings.city,
     }
 

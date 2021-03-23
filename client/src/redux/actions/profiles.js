@@ -25,7 +25,7 @@ export const deleteProfile = (id, userId) => (dispatch) => {
 }
 
 export const updateProfile = (id, profile, userId) => (dispatch) => {
-  axios.patch(`/profiles/${id}`).then(() => {
+  axios.patch(`/profiles/${id}`, profile).then(() => {
     dispatch(fetchProfiles(userId))
   })
 }
