@@ -1,0 +1,46 @@
+{
+    "env": {
+        "browser": true,
+        "es2021": true
+    },
+    "extends": [
+        "react-app",
+        "prettier",
+        "plugin:react/recommended",
+        "airbnb"
+    ],
+    "parserOptions": {
+        "ecmaFeatures": {
+            "jsx": true
+        },
+        "ecmaVersion": 12,
+        "sourceType": "module"
+    },
+    "plugins": [
+        "react",
+        "prettier"
+    ],
+    "rules": {
+      "jsx-quotes": [2, "prefer-double"],
+      "semi": "off",
+      "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
+      "no-param-reassign": "off",
+      "import/prefer-default-export": "off",
+      "react/prop-types": "off",
+      "react/react-in-jsx-scope": "off",
+      "no-underscore-dangle": "off",
+      "no-shadow": "off",
+      "react-hooks/exhaustive-deps": "off",
+      "react/jsx-props-no-spreading": "off",
+      "no-confusing-arrow": "off",
+      "react/jsx-curly-newline": "off",
+      "implicit-arrow-linebreak": "off",
+      "operator-linebreak": [2, "after"],
+      "jsx-a11y/label-has-associated-control": "off",
+      "object-curly-newline": "off",
+      "jsx-a11y/click-events-have-key-events": "off",
+      "react/no-array-index-key": "off",
+      "no-alert": "off",
+      "import/no-cycle": "off"
+    }
+}
